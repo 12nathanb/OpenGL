@@ -74,7 +74,23 @@ int main(void)
    
     glm::vec3 Scale;
 
+
+    glm::vec3 camPostion(0.0f, 0.f, 10.0f);
+    glm::vec3 worldUp(0.0f, 1.0f, 0.0f);
+    glm::vec3 camFront(0.0f, 0.0f, -1.0f);
+    glm::mat4 ViewMatrix(1.0f);
+    ViewMatrix = glm::lookAt(camPostion, camPostion + camFront, worldUp);
     
+    float fov = 90.0f;
+    float nearPlane = 0.1f;
+    float farPlane = 1000.f;
+    glm::mat4 ProjectionMatrix(1.0f);
+
+    ProjectionMatrix = glm::perspective(glm::radians(fov), static_cast<float>(frame_buffer_width) / frame_buffer_height, nearPlane, farPlane);
+
+
+    glUniformMatrix4fv(glGetUniformLocation(core_program, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(ProjectionMatrix));
+    glUniformMatrix4fv(glGetUniformLocation(core_program, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window.getWindow()))
@@ -88,8 +104,18 @@ int main(void)
         
         input.Update(core_program, window.getWindow());
 
+
+        glfwGetFramebufferSize(window.getWindow(), &frame_buffer_width, &frame_buffer_height);
+
+        glm::mat4 ProjectionMatrix(1.0f);
+        ProjectionMatrix = glm::perspective(glm::radians(fov), static_cast<float>(frame_buffer_width) / frame_buffer_height, nearPlane, farPlane);
+
+
+        glUniformMatrix4fv(glGetUniformLocation(core_program, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(ProjectionMatrix));
+        glUniformMatrix4fv(glGetUniformLocation(core_program, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
+
         //q.Update(core_program);
-        t.Update(core_program);
+        t.Update(core_program, frame_buffer_width, frame_buffer_height);
 
         //std::cout << window.showFPS() << std::endl;
 

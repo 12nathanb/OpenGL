@@ -49,7 +49,7 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 }
 
-glm::mat4 Shape::Update(GLuint& program)
+glm::mat4 Shape::Update(GLuint& program, int& frame_buffer_width, int& frame_buffer_height)
 {
 	glm::mat4 ModelMatrix(1.f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
@@ -57,6 +57,7 @@ glm::mat4 Shape::Update(GLuint& program)
 	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	ModelMatrix = glm::scale(ModelMatrix, Scale);
+	
 	
 	glUseProgram(program);
 

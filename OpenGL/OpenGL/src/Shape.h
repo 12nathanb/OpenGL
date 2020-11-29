@@ -9,7 +9,7 @@ class Shape
 public:
 	Shape();
 	void Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi);
-	glm::mat4 Update(GLuint& program);
+	glm::mat4 Update(GLuint& program, int& frame_buffer_width, int& frame_buffer_height);
 	void Draw(GLuint& program);
 	void SetScale(glm::vec3 s) { Scale = s; }
 	void SetPosition(glm::vec3 p) { Position = p;  }
