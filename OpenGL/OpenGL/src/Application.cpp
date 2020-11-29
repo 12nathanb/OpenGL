@@ -5,7 +5,7 @@
 #include "Shader.h"
 #include "Window.h"
 #include "Input.h"
-
+#include"Audio.h"
 int main(void)
 {
     
@@ -58,7 +58,8 @@ int main(void)
         return -1;
 
     Input input;
- 
+    Audio audio;
+    audio.loadFile("test.WAV", true);
 
     Quad t;
     Triangle q;
@@ -83,7 +84,7 @@ int main(void)
         q.Update(core_program);
         t.Update(core_program);
 
-        std::cout << window.showFPS() << std::endl;
+        //std::cout << window.showFPS() << std::endl;
 
         if (input.isKeyPressed(window.getWindow(), GLFW_KEY_ESCAPE))
         {
