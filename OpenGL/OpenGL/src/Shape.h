@@ -1,6 +1,7 @@
 #pragma once
 #include "libs.h"
 #include <vector>
+#include "Texture.h"
 
 class Shape
 {
@@ -13,6 +14,7 @@ public:
 	void SetScale(glm::vec3 s) { Scale = s; }
 	void SetPosition(glm::vec3 p) { Position = p;  }
 	void SetRotation(glm::vec3 r) { Rotation = r; }
+	void SetTexture(const char* fileName);
 	
 
 protected:
@@ -29,6 +31,8 @@ protected:
 	
 	std::vector<Vertex> vertArray;
 	std::vector<GLuint> indiArray;
+
+	const char* texture_file_name;
 
 };
 

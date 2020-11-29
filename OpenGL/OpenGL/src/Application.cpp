@@ -6,6 +6,8 @@
 #include "Window.h"
 #include "Input.h"
 #include"Audio.h"
+#include "Texture.h"
+
 int main(void)
 {
     
@@ -59,10 +61,15 @@ int main(void)
 
     Input input;
     Audio audio;
-    audio.loadFile("test.WAV", true);
+    //audio.loadFile("test.WAV", true);
+
+    Texture texture("mario.jpg", GL_TEXTURE_2D);
+
+    texture.bind(1);
+
 
     Quad t;
-    Triangle q;
+    //Triangle q;
     glm::vec3 Position;
    
     glm::vec3 Scale;
@@ -81,7 +88,7 @@ int main(void)
         
         input.Update(core_program, window.getWindow());
 
-        q.Update(core_program);
+        //q.Update(core_program);
         t.Update(core_program);
 
         //std::cout << window.showFPS() << std::endl;
@@ -95,7 +102,7 @@ int main(void)
             return 0;
         }
         
-        q.Draw(core_program);
+        //q.Draw(core_program);
         t.Draw(core_program);
         /* Swap front and back buffers */
         glfwSwapBuffers(window.getWindow());

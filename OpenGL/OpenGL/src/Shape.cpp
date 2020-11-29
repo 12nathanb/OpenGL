@@ -46,6 +46,7 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
+
 }
 
 glm::mat4 Shape::Update(GLuint& program)
@@ -73,4 +74,13 @@ void Shape::Draw(GLuint& program)
 	glBindVertexArray(VAO);
 
 	glDrawElements(GL_TRIANGLES, quad_number_of_indices, GL_UNSIGNED_INT, 0);
+}
+
+void Shape::SetTexture(const char* fileName)
+{
+	texture_file_name = fileName; 
+
+	Texture texture(texture_file_name, GL_TEXTURE_2D);
+
+	texture.unbind();
 }
