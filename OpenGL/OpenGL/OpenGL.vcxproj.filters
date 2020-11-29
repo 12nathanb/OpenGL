@@ -36,6 +36,12 @@
     <ClCompile Include="src\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\libs.h">
@@ -62,14 +68,14 @@
     <ClInclude Include="src\Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\vertex_shader.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\fragment_shader.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\Resources\Shaders\fragment_shader.glsl" />
     <None Include="src\Resources\Shaders\vertex_shader.glsl" />
   </ItemGroup>

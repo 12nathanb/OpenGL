@@ -4,6 +4,7 @@
 #include "Quad.h"
 #include "Shader.h"
 #include "Window.h"
+#include "Input.h"
 
 int main(void)
 {
@@ -56,7 +57,8 @@ int main(void)
     if (!shader.createShaders())
         return -1;
 
-
+    Input input;
+ 
 
     Quad t;
     Triangle q;
@@ -72,12 +74,25 @@ int main(void)
         /* Poll for and process events */
         glfwPollEvents();
 
+        
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         
+        input.Update(core_program, window.getWindow());
+
         q.Update(core_program);
         t.Update(core_program);
 
+        std::cout << window.showFPS() << std::endl;
+
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_ESCAPE))
+        {
+            glDeleteProgram(core_program);
+
+            glfwTerminate();
+
+            return 0;
+        }
         
         q.Draw(core_program);
         t.Draw(core_program);

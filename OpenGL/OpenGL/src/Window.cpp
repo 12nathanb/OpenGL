@@ -2,6 +2,7 @@
 
 Window::Window(int& window_width, int& window_height, int& frame_buffer_width, int& frame_buffer_height, std::string& program_name)
 {
+    t0 = glfwGetTime();
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
@@ -19,6 +20,24 @@ Window::Window(int& window_width, int& window_height, int& frame_buffer_width, i
 
     glfwMakeContextCurrent(window);
 
+}
+
+int Window::showFPS()
+{
+    
+    t = glfwGetTime();
+
+    if ((t - t0) > 1.0 || frames == 0)
+    {
+        fps = (double)frames / (t - t0);
+        
+        t0 = t;
+        frames = 0;
+    }
+    frames++;
+
+    return (int)fps;;
+   
 }
 
 GLFWwindow* Window::getWindow()

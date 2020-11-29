@@ -83,29 +83,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Quad.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Shape.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Quad.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\libs.h" />
     <ClInclude Include="src\Shape.h" />
+    <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\Vertex.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\fragment_shader.glsl" />
     <None Include="src\Resources\Shaders\fragment_shader.glsl" />
     <None Include="src\Resources\Shaders\vertex_shader.glsl" />
-    <None Include="src\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\test.txt" />
