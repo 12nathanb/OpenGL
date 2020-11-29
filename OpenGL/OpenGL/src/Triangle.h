@@ -1,14 +1,11 @@
 #pragma once
 #include "libs.h"
-class Triangle
+#include"Shape.h"
+
+class Triangle : public Shape
 {
 public:
 	Triangle();
 
-	void Draw(GLuint& program);
-private:
-	GLuint VAO;
-	GLuint VBO;
-	GLuint EBO;
 };
 
