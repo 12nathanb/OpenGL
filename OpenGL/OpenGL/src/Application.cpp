@@ -7,6 +7,7 @@
 #include "Input.h"
 #include"Audio.h"
 #include "Texture.h"
+#include "Camera.h"
 
 int main(void)
 {
@@ -59,38 +60,28 @@ int main(void)
     if (!shader.createShaders())
         return -1;
 
+    Camera camera(core_program);
+    camera.SetCameraPos(glm::vec3(0.0f, 0.0f, 3.0f));
     Input input;
     Audio audio;
     //audio.loadFile("test.WAV", true);
 
-    Texture texture("mario.jpg", GL_TEXTURE_2D);
+    //Texture texture("mario.jpg", GL_TEXTURE_2D);
 
-    texture.bind(1);
+    //texture.bind(1);
 
 
     Quad t;
+ 
+    t.SetTexture("mario.jpg");
     //Triangle q;
     glm::vec3 Position;
    
     glm::vec3 Scale;
 
 
-    glm::vec3 camPostion(0.0f, 0.f, 10.0f);
-    glm::vec3 worldUp(0.0f, 1.0f, 0.0f);
-    glm::vec3 camFront(0.0f, 0.0f, -1.0f);
-    glm::mat4 ViewMatrix(1.0f);
-    ViewMatrix = glm::lookAt(camPostion, camPostion + camFront, worldUp);
-    
-    float fov = 90.0f;
-    float nearPlane = 0.1f;
-    float farPlane = 1000.f;
-    glm::mat4 ProjectionMatrix(1.0f);
-
-    ProjectionMatrix = glm::perspective(glm::radians(fov), static_cast<float>(frame_buffer_width) / frame_buffer_height, nearPlane, farPlane);
 
 
-    glUniformMatrix4fv(glGetUniformLocation(core_program, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(ProjectionMatrix));
-    glUniformMatrix4fv(glGetUniformLocation(core_program, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window.getWindow()))
@@ -104,19 +95,10 @@ int main(void)
         
         input.Update(core_program, window.getWindow());
 
-
-        glfwGetFramebufferSize(window.getWindow(), &frame_buffer_width, &frame_buffer_height);
-
-        glm::mat4 ProjectionMatrix(1.0f);
-        ProjectionMatrix = glm::perspective(glm::radians(fov), static_cast<float>(frame_buffer_width) / frame_buffer_height, nearPlane, farPlane);
-
-
-        glUniformMatrix4fv(glGetUniformLocation(core_program, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(ProjectionMatrix));
-        glUniformMatrix4fv(glGetUniformLocation(core_program, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
-
         //q.Update(core_program);
-        t.Update(core_program, frame_buffer_width, frame_buffer_height);
+        t.Update(core_program);
 
+        camera.Update(core_program, window.getWindow(), frame_buffer_width, frame_buffer_height);
         //std::cout << window.showFPS() << std::endl;
 
         if (input.isKeyPressed(window.getWindow(), GLFW_KEY_ESCAPE))
@@ -130,6 +112,7 @@ int main(void)
         
         //q.Draw(core_program);
         t.Draw(core_program);
+
         /* Swap front and back buffers */
         glfwSwapBuffers(window.getWindow());
         glFlush();

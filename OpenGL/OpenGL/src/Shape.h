@@ -9,12 +9,12 @@ class Shape
 public:
 	Shape();
 	void Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi);
-	glm::mat4 Update(GLuint& program, int& frame_buffer_width, int& frame_buffer_height);
+	glm::mat4 Update(GLuint& program);
 	void Draw(GLuint& program);
 	void SetScale(glm::vec3 s) { Scale = s; }
 	void SetPosition(glm::vec3 p) { Position = p;  }
 	void SetRotation(glm::vec3 r) { Rotation = r; }
-	void SetTexture(const char* fileName);
+	void SetTexture(std::string fileName);
 	
 
 protected:
@@ -33,6 +33,8 @@ protected:
 	std::vector<GLuint> indiArray;
 
 	const char* texture_file_name;
+
+	Texture texture;
 
 };
 

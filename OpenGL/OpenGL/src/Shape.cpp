@@ -49,7 +49,7 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 }
 
-glm::mat4 Shape::Update(GLuint& program, int& frame_buffer_width, int& frame_buffer_height)
+glm::mat4 Shape::Update(GLuint& program)
 {
 	glm::mat4 ModelMatrix(1.f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
@@ -63,8 +63,6 @@ glm::mat4 Shape::Update(GLuint& program, int& frame_buffer_width, int& frame_buf
 
 	glUniformMatrix4fv(glGetUniformLocation(program, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
 
-	glUseProgram(0);
-
 	return ModelMatrix;
 }
 
@@ -77,11 +75,15 @@ void Shape::Draw(GLuint& program)
 	glDrawElements(GL_TRIANGLES, quad_number_of_indices, GL_UNSIGNED_INT, 0);
 }
 
-void Shape::SetTexture(const char* fileName)
+void Shape::SetTexture(std::string fileName)
 {
-	texture_file_name = fileName; 
+	const char* test = fileName.c_str(); 
 
-	Texture texture(texture_file_name, GL_TEXTURE_2D);
+	Texture* texture = new Texture;
 
-	texture.unbind();
+	texture->init(test, GL_TEXTURE_2D);
+
+	texture->bind(1);
+
+	//texture.unbind();
 }

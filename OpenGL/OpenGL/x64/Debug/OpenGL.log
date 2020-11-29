@@ -1,8 +1,4 @@
 ﻿  Application.cpp
-C:\Users\natha\OpenGL\OpenGL\OpenGL\src\Application.cpp(73,15): warning C4101: 'Position': unreferenced local variable
-C:\Users\natha\OpenGL\OpenGL\OpenGL\src\Application.cpp(75,15): warning C4101: 'Scale': unreferenced local variable
-  Quad.cpp
-  Shape.cpp
-  Triangle.cpp
-  Generating Code...
+C:\Users\natha\OpenGL\OpenGL\OpenGL\src\Application.cpp(79,15): warning C4101: 'Position': unreferenced local variable
+C:\Users\natha\OpenGL\OpenGL\OpenGL\src\Application.cpp(81,15): warning C4101: 'Scale': unreferenced local variable
   OpenGL.vcxproj -> C:\Users\natha\OpenGL\OpenGL\x64\Debug\OpenGL.exe

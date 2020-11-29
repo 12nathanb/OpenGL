@@ -16,8 +16,9 @@ private:
 	unsigned int type;
 
 public:
-	Texture(const char* fileName, GLenum type);
+	Texture();
 	~Texture();
+	void init(const char* fileName, GLenum type);
 	inline GLuint getID() const { return id; }
 	void bind(const GLint texture_unit);
 	void unbind();

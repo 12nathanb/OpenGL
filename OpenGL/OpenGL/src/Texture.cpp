@@ -1,11 +1,23 @@
 #include "Texture.h"
 
-Texture::Texture(const char* fileName, GLenum type)
+Texture::Texture()
+{
+	
+}
+
+Texture::~Texture()
+{
+	glDeleteTextures(1, &this->id);
+}
+
+void Texture::init(const char* fileName, GLenum type)
 {
 	this->type = type;
 	std::string dir = ".\\src\\Resources\\Images\\";
 	dir += fileName;
-	const char* file =  dir.c_str();
+	std::cout << fileName << std::endl;
+	const char* file = dir.c_str();
+	std::cout << file << std::endl;
 	unsigned char* image = SOIL_load_image(file, &this->width, &this->height, NULL, SOIL_LOAD_RGBA);
 
 	glGenTextures(1, &this->id);
@@ -29,11 +41,6 @@ Texture::Texture(const char* fileName, GLenum type)
 	glActiveTexture(0);
 	glBindTexture(type, 0);
 	SOIL_free_image_data(image);
-}
-
-Texture::~Texture()
-{
-	glDeleteTextures(1, &this->id);
 }
 
 void Texture::bind(const GLint texture_unit)
