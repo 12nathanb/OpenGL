@@ -15,7 +15,8 @@ public:
 	void SetPosition(glm::vec3 p) { Position = p;  }
 	void SetRotation(glm::vec3 r) { Rotation = r; }
 	void SetTexture(std::string fileName);
-	
+	void MoveObject(glm::vec3 p) { Position += p; }
+	void RotateObject(glm::vec3 r) { Rotation += r; }
 
 protected:
 	glm::vec3 Position;

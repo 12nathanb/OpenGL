@@ -63,6 +63,11 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\IRRKLANG\lib\Winx64-visualStudio;$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib\Release\x64;$(SolutionDir)Dependencies\SOIL2\vs-2019</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;glew32s.lib;irrKlang.lib;soil2.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\ikpFlac.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\ikpMP3.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -83,6 +88,11 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\IRRKLANG\lib\Winx64-visualStudio;$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib\Release\x64;$(SolutionDir)Dependencies\SOIL2\vs-2019</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;glew32s.lib;irrKlang.lib;soil2.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\ikpFlac.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\ikpMP3.dll" "$(OutDir)"
+xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Audio.cpp" />
