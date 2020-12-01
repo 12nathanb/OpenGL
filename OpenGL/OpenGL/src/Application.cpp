@@ -101,6 +101,36 @@ int main(void)
         camera.Update(core_program, window.getWindow(), frame_buffer_width, frame_buffer_height);
         //std::cout << window.showFPS() << std::endl;
 
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_UP) || input.isKeyPressed(window.getWindow(), GLFW_KEY_W))
+        {
+            camera.MoveCamera(glm::vec3(NULL, NULL, -0.01));
+        }
+
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_DOWN) || input.isKeyPressed(window.getWindow(), GLFW_KEY_S))
+        {
+            camera.MoveCamera(glm::vec3(NULL, NULL, 0.01));
+        }
+
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_LEFT) || input.isKeyPressed(window.getWindow(), GLFW_KEY_A))
+        {
+            camera.MoveCamera(glm::vec3(-0.01, NULL, NULL));
+        }
+
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_RIGHT) || input.isKeyPressed(window.getWindow(), GLFW_KEY_D))
+        {
+            camera.MoveCamera(glm::vec3(0.01, NULL, NULL));
+        }
+
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_Q))
+        {
+            camera.RotateCamera(glm::vec3(-0.1,NULL , NULL));
+        }
+        
+        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_E))
+        {
+            camera.RotateCamera(glm::vec3(0.1, NULL, NULL));
+        }
+
         if (input.isKeyPressed(window.getWindow(), GLFW_KEY_ESCAPE))
         {
             glDeleteProgram(core_program);

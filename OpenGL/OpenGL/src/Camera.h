@@ -32,7 +32,7 @@ private:
 
     GLfloat  yaw =  -90;
     GLfloat  pitch = 0;
-    GLfloat roll;
+    GLfloat  roll = 0;
 
     glm::vec3 right;
     glm::vec3 up;
