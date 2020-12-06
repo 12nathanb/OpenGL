@@ -3,8 +3,8 @@
 class Camera
 {
 public:
-    Camera(GLuint& program);
-    void Update(GLuint& program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height);
+    Camera(Shaders& program);
+    void Update(Shaders& program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height);
     void SetCameraPos(glm::vec3 CP) { camPostion = CP; }
     void MoveCamera(glm::vec3 CP) { camPostion += CP; }
     void SetWorldUp(glm::vec3 WU) { worldUp = WU; }

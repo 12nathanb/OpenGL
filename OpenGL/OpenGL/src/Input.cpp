@@ -5,7 +5,7 @@ Input::Input()
     GLFWvidmode return_struct;
 }
 
-void Input::Update(GLuint& program, GLFWwindow* window)
+void Input::Update(GLFWwindow* window)
 {
    
     std::pair<float, float> mouse = getMousePos(window);

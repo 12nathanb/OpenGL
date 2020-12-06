@@ -52,7 +52,7 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 }
 
-glm::mat4 Shape::Update(GLuint& program)
+glm::mat4 Shape::Update(Shaders& program)
 {
 	glm::mat4 ModelMatrix(1.f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
@@ -64,16 +64,15 @@ glm::mat4 Shape::Update(GLuint& program)
 	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
 
 	
-	glUseProgram(program);
-
-	glUniformMatrix4fv(glGetUniformLocation(program, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
-	glUniform3fv(glGetUniformLocation(program, "lightPos0"), 1, glm::value_ptr(lightPos0));
+	program.setMat4fv(ModelMatrix, "ModelMatrix");
+	program.setVec3f(lightPos0, "lightPos0");
+	
 	return ModelMatrix;
 }
 
-void Shape::Draw(GLuint& program)
+void Shape::Draw(Shaders& program)
 {
-	glUseProgram(program);
+	program.use();
 
 	glBindVertexArray(VAO);
 

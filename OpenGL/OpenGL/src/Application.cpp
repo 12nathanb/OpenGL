@@ -2,7 +2,7 @@
 #include "libs.h"
 #include "Triangle.h"
 #include "Quad.h"
-#include "Shader.h"
+#include "Shaders.h"
 #include "Window.h"
 #include "Input.h"
 #include"Audio.h"
@@ -51,24 +51,21 @@ int main(void)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    Shaders core_program("vertex_shader.glsl", "fragment_shader.glsl");
+    
+    //GLuint core_program;
 
-    GLuint core_program;
-
-    Shader shader("vertex_shader.glsl", "fragment_shader.glsl", core_program);
+    //Shader shader("vertex_shader.glsl", "fragment_shader.glsl", core_program);
 
 
-    if (!shader.createShaders())
-        return -1;
+    //if (!shader.createShaders())
+        //return -1;
 
     Camera camera(core_program);
     camera.SetCameraPos(glm::vec3(0.0f, 0.0f, 3.0f));
     Input input;
     Audio audio;
     //audio.loadFile("test.WAV", true);
-
-    //Texture texture("mario.jpg", GL_TEXTURE_2D);
-
-    //texture.bind(1);
 
 
     Quad t;
@@ -93,7 +90,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         
-        input.Update(core_program, window.getWindow());
+        input.Update(window.getWindow());
 
         //q.Update(core_program);
         t.Update(core_program);
@@ -141,14 +138,14 @@ int main(void)
 
         if (input.isKeyPressed(window.getWindow(), GLFW_KEY_ESCAPE))
         {
-            glDeleteProgram(core_program);
+         
 
             glfwTerminate();
 
             return 0;
         }
 
-        glUniform3fv(glGetUniformLocation(core_program, "cameraPos"), 1, glm::value_ptr(camera.GetCameraPos()));
+        //glUniform3fv(glGetUniformLocation(core_program, "cameraPos"), 1, glm::value_ptr(camera.GetCameraPos()));
         
         //q.Draw(core_program);
         t.Draw(core_program);
@@ -158,7 +155,6 @@ int main(void)
         glFlush();
     }
 
-    glDeleteProgram(core_program);
 
     glfwTerminate();
     return 0;

@@ -4,7 +4,7 @@ class Input
 {
 public:
 	Input();
-	void Update(GLuint& program, GLFWwindow* window);
+	void Update(GLFWwindow* window);
 	bool isKeyPressed(GLFWwindow* window, int keycode);
 	std::pair<float, float> getMousePos(GLFWwindow* window);
 	float getMouseX(GLFWwindow* window);
