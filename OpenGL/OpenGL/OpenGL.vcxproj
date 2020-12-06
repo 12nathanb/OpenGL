@@ -104,7 +104,6 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Shape.cpp" />
     <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +116,6 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClInclude Include="src\libs.h" />
     <ClInclude Include="src\Shape.h" />
     <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\Vertex.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>

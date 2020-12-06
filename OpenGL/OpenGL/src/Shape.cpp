@@ -61,11 +61,13 @@ glm::mat4 Shape::Update(GLuint& program)
 	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	ModelMatrix = glm::scale(ModelMatrix, Scale);
 	
+	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
+
 	
 	glUseProgram(program);
 
 	glUniformMatrix4fv(glGetUniformLocation(program, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
-
+	glUniform3fv(glGetUniformLocation(program, "lightPos0"), 1, glm::value_ptr(lightPos0));
 	return ModelMatrix;
 }
 
