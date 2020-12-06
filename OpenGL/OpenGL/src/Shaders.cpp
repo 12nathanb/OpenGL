@@ -22,10 +22,10 @@ Shaders::Shaders(const char* vertexFile,  const char* fragmentFile,  const char*
 
 	if (geomtryFile != "")
 	{
-		geometryShader = loadShader(GL_VERTEX_SHADER, geoFile.c_str());
+		geometryShader = loadShader(GL_GEOMETRY_SHADER, geoFile.c_str());
 	}
 
-	fragmentShader = loadShader(GL_VERTEX_SHADER, fragFile.c_str());
+	fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragFile.c_str());
 
 	std::cout << vertexShader << std::endl;
 	std::cout << geometryShader << std::endl;
@@ -107,7 +107,14 @@ std::string Shaders::loadShaderSource(const char* fileName)
 		std::cout << "ERROR LOADING SHADER FILE: " << fileName << std::endl;
 	}
 
-	in_file.close();
+	std::string versionNr =
+		std::to_string(4) +
+		std::to_string(4) +
+		"0";
+
+	src.replace(src.find("#version"), 12, ("#version " + versionNr));
+
+	//std::cout << src << std::endl;
 
 	return src;
 }

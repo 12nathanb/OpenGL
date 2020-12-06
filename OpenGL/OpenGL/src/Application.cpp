@@ -70,7 +70,11 @@ int main(void)
 
     Quad t;
  
-    t.SetTexture("mario.jpg");
+    //t.SetTexture("mario.jpg");
+    Texture texture0;
+    texture0.init("mario.jpg", GL_TEXTURE_2D, 0);
+    material material0;
+    material0.init(glm::vec3(0.1f), glm::vec3(1.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
     //Triangle q;
     glm::vec3 Position;
    
@@ -78,15 +82,17 @@ int main(void)
 
 
 
-
+  
    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window.getWindow()))
     {
+        core_program.use();
+        texture0.bind();
         /* Poll for and process events */
         glfwPollEvents();
 
-        
+        material0.sendToShader(core_program);
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         

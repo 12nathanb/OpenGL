@@ -2,6 +2,7 @@
 #include "libs.h"
 #include <vector>
 #include "Texture.h"
+#include "material.h"
 
 class Shape
 {
@@ -36,6 +37,7 @@ protected:
 	const char* texture_file_name;
 
 	Texture texture;
+	material mat;
 
 };
 

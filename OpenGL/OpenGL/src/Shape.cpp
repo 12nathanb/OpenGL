@@ -63,7 +63,6 @@ glm::mat4 Shape::Update(Shaders& program)
 	
 	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
 
-	
 	program.setMat4fv(ModelMatrix, "ModelMatrix");
 	program.setVec3f(lightPos0, "lightPos0");
 	
@@ -73,7 +72,7 @@ glm::mat4 Shape::Update(Shaders& program)
 void Shape::Draw(Shaders& program)
 {
 	program.use();
-
+	
 	glBindVertexArray(VAO);
 
 	glDrawElements(GL_TRIANGLES, quad_number_of_indices, GL_UNSIGNED_INT, 0);
@@ -83,11 +82,11 @@ void Shape::SetTexture(std::string fileName)
 {
 	const char* test = fileName.c_str(); 
 
-	Texture* texture = new Texture;
+	
+	
+	texture.init(test, GL_TEXTURE_2D, 0);
 
-	texture->init(test, GL_TEXTURE_2D);
-
-	texture->bind(1);
-
-	//texture.unbind();
+	texture.bind();
+	mat.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture.getID(), texture.getID());
+	
 }

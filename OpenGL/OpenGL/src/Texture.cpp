@@ -10,8 +10,9 @@ Texture::~Texture()
 	glDeleteTextures(1, &this->id);
 }
 
-void Texture::init(const char* fileName, GLenum type)
+void Texture::init(const char* fileName, GLenum type, const GLint texture_unit)
 {
+	this->texture_unit = texture_unit;
 	this->type = type;
 	std::string dir = ".\\src\\Resources\\Images\\";
 	dir += fileName;
@@ -43,15 +44,15 @@ void Texture::init(const char* fileName, GLenum type)
 	SOIL_free_image_data(image);
 }
 
-void Texture::bind(const GLint texture_unit)
+void Texture::bind()
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, this->id);
+	glBindTexture(this->type, this->id);
 }
 
 void Texture::unbind()
 {
-	glActiveTexture(0);
-	glBindTexture(this->type, 0);
+	//glActiveTexture(0);
+	//glBindTexture(this->type, 0);
 }
 

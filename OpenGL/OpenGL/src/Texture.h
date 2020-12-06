@@ -14,13 +14,13 @@ private:
 	int width;
 	int height;
 	unsigned int type;
-
+	GLint texture_unit;
 public:
 	Texture();
 	~Texture();
-	void init(const char* fileName, GLenum type);
+	void init(const char* fileName, GLenum type, const GLint texture_unit);
 	inline GLuint getID() const { return id; }
-	void bind(const GLint texture_unit);
+	void bind();
 	void unbind();
 };
 
