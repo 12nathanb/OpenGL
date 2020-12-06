@@ -147,6 +147,8 @@ int main(void)
 
             return 0;
         }
+
+        glUniform3fv(glGetUniformLocation(core_program, "cameraPos"), 1, glm::value_ptr(camera.GetCameraPos()));
         
         //q.Draw(core_program);
         t.Draw(core_program);
