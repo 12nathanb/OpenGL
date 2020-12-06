@@ -2,7 +2,7 @@
 #include "libs.h"
 #include "Triangle.h"
 #include "Quad.h"
-#include "Shaders.h"
+#include "Shader.h"
 #include "Window.h"
 #include "Input.h"
 #include"Audio.h"
@@ -51,7 +51,7 @@ int main(void)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    Shaders core_program("vertex_shader.glsl", "fragment_shader.glsl");
+    Shader core_program("vertex_shader.glsl", "fragment_shader.glsl");
     
     //GLuint core_program;
 

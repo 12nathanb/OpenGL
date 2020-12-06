@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(Shaders& program)
+Camera::Camera(Shader& program)
 {
 	camPostion = glm::vec3(0.0f, 0.f, 0.0f);
 	worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -12,7 +12,7 @@ Camera::Camera(Shaders& program)
 	program.setMat4fv(ViewMatrix, "ViewMatrix");
 }
 
-void Camera::Update(Shaders& program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height)
+void Camera::Update(Shader& program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height)
 {
 	
 	updateCameraVectors();

@@ -101,9 +101,8 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Quad.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Shaders.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Shape.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Window.cpp" />
@@ -115,9 +114,8 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClInclude Include="src\material.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Quad.h" />
-    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\libs.h" />
-    <ClInclude Include="src\Shaders.h" />
+    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Vertex.h" />

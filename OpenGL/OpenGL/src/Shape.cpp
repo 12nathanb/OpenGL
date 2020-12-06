@@ -52,7 +52,7 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 }
 
-glm::mat4 Shape::Update(Shaders& program)
+glm::mat4 Shape::Update(Shader& program)
 {
 	glm::mat4 ModelMatrix(1.f);
 	ModelMatrix = glm::translate(ModelMatrix, Position);
@@ -69,7 +69,7 @@ glm::mat4 Shape::Update(Shaders& program)
 	return ModelMatrix;
 }
 
-void Shape::Draw(Shaders& program)
+void Shape::Draw(Shader& program)
 {
 	program.use();
 	
@@ -84,9 +84,9 @@ void Shape::SetTexture(std::string fileName)
 
 	
 	
-	texture.init(test, GL_TEXTURE_2D, 0);
+	texture0.init(test, GL_TEXTURE_2D, 0);
 
-	texture.bind();
-	mat.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture.getID(), texture.getID());
+	
+	material0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
 	
 }

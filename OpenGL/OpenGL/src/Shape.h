@@ -10,8 +10,8 @@ class Shape
 public:
 	Shape();
 	void Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi);
-	glm::mat4 Update(Shaders& program);
-	void Draw(Shaders& program);
+	glm::mat4 Update(Shader& program);
+	void Draw(Shader& program);
 	void SetScale(glm::vec3 s) { Scale = s; }
 	void SetPosition(glm::vec3 p) { Position = p;  }
 	void SetRotation(glm::vec3 r) { Rotation = r; }
@@ -36,8 +36,8 @@ protected:
 
 	const char* texture_file_name;
 
-	Texture texture;
-	material mat;
+	Texture texture0;
+	material material0;
 
 };
 

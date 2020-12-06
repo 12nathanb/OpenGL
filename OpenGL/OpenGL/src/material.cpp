@@ -14,7 +14,7 @@ void material::init(glm::vec3 ambient,
 }
 
 
-void material::sendToShader(Shaders& program)
+void material::sendToShader(Shader& program)
 {
 	program.setVec3f(this->ambient, "material.ambient");
 	program.setVec3f(this->diffuse, "material.diffuse");
