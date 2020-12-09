@@ -19,22 +19,20 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 		this->indiArray.push_back(indexArray[i]);
 	}
 
-	quad_number_of_vertices = sizeof(vertArray) / sizeof(Vertex);
-	quad_number_of_indices = sizeof(indiArray) / sizeof(GLuint);
+	number_of_vertices = num_of_vert;
+	number_of_indices = num_of_indi;
 
-	glCreateVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
+	VAO.CreateVertexArray(1);
 
+	VBO.GenerateBuffers(1);
+	VBO.BindBuffer(this->number_of_vertices, this->vertArray.data(), GL_STATIC_DRAW);
 
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, this->vertArray.size() * sizeof(Vertex), this->vertArray.data(), GL_STATIC_DRAW);
-
-
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indiArray.size() * sizeof(GLuint), this->indiArray.data(), GL_STATIC_DRAW);
-
+	if (this->number_of_indices > 0)
+	{
+		EBO.GenerateBuffers(1);
+		EBO.BindBuffer(this->number_of_indices, this->indiArray.data(), GL_STATIC_DRAW);
+	}
+	
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 	glEnableVertexAttribArray(0);
@@ -45,32 +43,67 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texcoord));
 	glEnableVertexAttribArray(2);
 
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+	glEnableVertexAttribArray(3);
+
 	glBindVertexArray(0);
+
 }
 
-glm::mat4 Shape::Update(GLuint& program)
+void Shape::Update(Shader* program)
 {
-	glm::mat4 ModelMatrix(1.f);
-	ModelMatrix = glm::translate(ModelMatrix, Position);
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelMatrix = glm::scale(ModelMatrix, Scale);
 	
-	glUseProgram(program);
+	
+	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
 
-	glUniformMatrix4fv(glGetUniformLocation(program, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
+	
+	program->setVec3f(lightPos0, "lightPos0");
+	
 
-	glUseProgram(0);
-
-	return ModelMatrix;
 }
 
-void Shape::Draw(GLuint& program)
+void Shape::Draw(Shader* program)
 {
-	glUseProgram(program);
+	this->updateModelMatrix();
+	this->updateUniforms(program);
 
-	glBindVertexArray(VAO);
+	program->use();
+	
+	glBindVertexArray(VAO.GetVertexArray());
 
-	glDrawElements(GL_TRIANGLES, quad_number_of_indices, GL_UNSIGNED_INT, 0);
+	if (this->number_of_indices == 0)
+	{
+		glDrawArrays(GL_TRIANGLES, 0, this->number_of_vertices);
+
+	}
+	else
+	{
+		glDrawElements(GL_TRIANGLES, number_of_indices, GL_UNSIGNED_INT, 0);
+
+	}
+	
+	
+}
+
+void Shape::SetTexture(std::string fileName)
+{
+	const char* test = fileName.c_str(); 
+
+	
+	
+	//texture0.init(fileName.c_str(), GL_TEXTURE_2D, 0);
+
+	
+	//material0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
+	
+}
+
+void Shape::updateModelMatrix()
+{
+	this->ModelMatrix = glm::mat4(1.f);
+	this->ModelMatrix = glm::translate(this->ModelMatrix, this->Position);
+	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	this->ModelMatrix = glm::scale(this->ModelMatrix, this->Scale);
 }
