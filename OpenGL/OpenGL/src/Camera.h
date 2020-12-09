@@ -1,5 +1,7 @@
 #pragma once
-#include "libs.h"
+#include <glm.hpp>
+#include "Shader.h"
+
 class Camera
 {
 public:

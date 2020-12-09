@@ -19,23 +19,18 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 		this->indiArray.push_back(indexArray[i]);
 	}
 
-	quad_number_of_vertices = num_of_vert;
-	quad_number_of_indices = num_of_indi;
+	number_of_vertices = num_of_vert;
+	number_of_indices = num_of_indi;
 
-	glCreateVertexArrays(1, &this->VAO);
-	glBindVertexArray(this->VAO);
+	VAO.CreateVertexArray(1);
 
+	VBO.GenerateBuffers(1);
+	VBO.BindBuffer(this->number_of_vertices, this->vertArray.data(), GL_STATIC_DRAW);
 
-	glGenBuffers(1, &this->VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, this->quad_number_of_vertices * sizeof(Vertex), this->vertArray.data(), GL_STATIC_DRAW);
-
-	if (this->quad_number_of_indices > 0)
+	if (this->number_of_indices > 0)
 	{
-		glGenBuffers(1, &this->EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indiArray.size() * sizeof(GLuint), this->indiArray.data(), GL_STATIC_DRAW);
-
+		EBO.GenerateBuffers(1);
+		EBO.BindBuffer(this->number_of_indices, this->indiArray.data(), GL_STATIC_DRAW);
 	}
 	
 
@@ -74,16 +69,16 @@ void Shape::Draw(Shader* program)
 
 	program->use();
 	
-	glBindVertexArray(this->VAO);
+	glBindVertexArray(VAO.GetVertexArray());
 
-	if (this->quad_number_of_indices == 0)
+	if (this->number_of_indices == 0)
 	{
-		glDrawArrays(GL_TRIANGLES, 0, this->quad_number_of_vertices);
+		glDrawArrays(GL_TRIANGLES, 0, this->number_of_vertices);
 
 	}
 	else
 	{
-		glDrawElements(GL_TRIANGLES, quad_number_of_indices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, number_of_indices, GL_UNSIGNED_INT, 0);
 
 	}
 	

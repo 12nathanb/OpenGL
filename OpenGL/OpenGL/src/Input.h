@@ -1,5 +1,7 @@
 #pragma once
-#include "libs.h"
+#include <GLFW/glfw3.h>
+#include <iostream>
+
 class Input
 {
 public:

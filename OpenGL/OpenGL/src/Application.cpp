@@ -9,7 +9,8 @@
 #include "Texture.h"
 #include "Camera.h"
 #include"Pyramid.h"
-
+#include "Light.h"
+#include "Cube.h"
 int main(void)
 {
     /* Initialize the library */
@@ -54,15 +55,18 @@ int main(void)
     camera.SetCameraPos(glm::vec3(0.0f, 0.0f, 3.0f));
     Input input;
     Audio audio;
+    Light light;
     //audio.loadFile("test.WAV", true);
 
     Pyramid t;
-    //Triangle t2;
-    //t.SetTexture("mario.jpg");
+    Cube t2;
+
     Texture texture0;
     texture0.init("box.jpg", GL_TEXTURE_2D, 0);
     material material0;
     material0.init(glm::vec3(0.1f), glm::vec3(1.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
+
+
    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window.getWindow()))
@@ -79,13 +83,12 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         
         input.Update(window.getWindow());
-        t.Draw(&core_program);
-        //q.Update(core_program);
-        
-        //t2.Update(&core_program);
+     
+       
+        t2.Update(&core_program);
         t.Update(&core_program);
         camera.Update(core_program, window.getWindow(), frame_buffer_width, frame_buffer_height);
-        //std::cout << window.showFPS() << std::endl;
+
 
         //Camera controls
         if (input.isKeyPressed(window.getWindow(), GLFW_KEY_UP) || input.isKeyPressed(window.getWindow(), GLFW_KEY_W))
@@ -126,8 +129,8 @@ int main(void)
 
             return 0;
         }
-        
-       
+        t2.Draw(&core_program);
+        t.Draw(&core_program);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window.getWindow());

@@ -1,8 +1,17 @@
 #pragma once
-#include "libs.h"
+#include <string>
+#include <iostream>
 #include <vector>
 #include "Texture.h"
 #include "material.h"
+#include<vec2.hpp>
+#include<vec3.hpp>
+#include<mat4x4.hpp>
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+#include "ElementBuffer.h"
+#include "Vertex.h"
+
 
 class Shape
 {
@@ -29,12 +38,11 @@ private:
 	glm::vec3 Rotation;
 	glm::vec3 Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 
-	GLuint VAO;
-	GLuint VBO;
-	GLuint EBO;
+	
+	
 
-	unsigned quad_number_of_vertices;
-	unsigned quad_number_of_indices;
+	unsigned number_of_vertices;
+	unsigned number_of_indices;
 	
 	std::vector<Vertex> vertArray;
 	std::vector<GLuint> indiArray;
@@ -44,7 +52,9 @@ private:
 	Texture texture0;
 	material material0;
 
-	
+	VertexArray VAO;
+	VertexBuffer VBO;
+	ElementBuffer EBO;
 
 };
 

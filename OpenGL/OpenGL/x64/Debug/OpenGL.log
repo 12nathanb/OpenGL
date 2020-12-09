@@ -1,4 +1,11 @@
 ﻿  Application.cpp
+  Cube.cpp
+  Pyramid.cpp
+  Quad.cpp
+  Shape.cpp
+  Triangle.cpp
+  VertexBuffer.cpp
+  Generating Code...
   OpenGL.vcxproj -> C:\Users\natha\OpenGL\OpenGL\x64\Debug\OpenGL.exe
   0 File(s) copied
   0 File(s) copied
