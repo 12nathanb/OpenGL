@@ -9,10 +9,8 @@ void Input::Update(GLFWwindow* window)
 {
    
     std::pair<float, float> mouse = getMousePos(window);
-    //glfwSetMouseButtonCallback(window, mouse_button_callback);
+
     bool t = isKeyPressed(window, GLFW_KEY_ESCAPE);
-   // std::cout << t << std::endl;
-   // std::cout << "X: " << mouse.first << " " << "Y: " << mouse.second << std::endl;
 }
 
 bool Input::isKeyPressed(GLFWwindow* window, int keycode)

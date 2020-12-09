@@ -52,7 +52,7 @@ void Texture::bind()
 
 void Texture::unbind()
 {
-	//glActiveTexture(0);
-	//glBindTexture(this->type, 0);
+	glActiveTexture(0);
+	glBindTexture(this->type, 0);
 }
 

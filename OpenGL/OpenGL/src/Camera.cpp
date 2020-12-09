@@ -14,7 +14,6 @@ Camera::Camera(Shader& program)
 
 void Camera::Update(Shader& program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height)
 {
-	
 	updateCameraVectors();
 	ViewMatrix = glm::lookAt(camPostion, camPostion + camFront, worldUp);
 	glfwGetFramebufferSize(window, &frame_buffer_width, &frame_buffer_height);
@@ -23,6 +22,7 @@ void Camera::Update(Shader& program, GLFWwindow* window, int& frame_buffer_width
 
 	program.setMat4fv(ProjectionMatrix, "ProjectionMatrix");
 	program.setMat4fv(ViewMatrix, "ViewMatrix");
+	program.setVec3f(this->GetCameraPos(), "cameraPos");
 }
 
 void Camera::updateCameraVectors()

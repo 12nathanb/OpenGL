@@ -9,6 +9,7 @@ public:
 	std::pair<float, float> getMousePos(GLFWwindow* window);
 	float getMouseX(GLFWwindow* window);
 	float getMouseY(GLFWwindow* window);
+
 private:
 	
 	

@@ -17,6 +17,7 @@ public:
     glm::vec3 GetCamFront() { return camFront; }
     glm::mat4 GetViewMatrix() { return ViewMatrix; }
     glm::mat4 GetProjectionMatrix() { return ProjectionMatrix; }
+
 private:
     void updateCameraVectors();
 private:

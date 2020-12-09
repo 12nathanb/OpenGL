@@ -12,8 +12,8 @@ public:
 		GLint diffuseTex,
 		GLint specularTex);
 
-
 	void sendToShader(Shader& programID);
+
 private:
 	glm::vec3 ambient;
 	glm::vec3 diffuse;

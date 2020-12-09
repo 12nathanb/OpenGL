@@ -100,11 +100,13 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\Pyramid.cpp" />
     <ClCompile Include="src\Quad.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Shape.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -113,11 +115,13 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\material.h" />
     <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\Pyramid.h" />
     <ClInclude Include="src\Quad.h" />
     <ClInclude Include="src\libs.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\Vertex.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
