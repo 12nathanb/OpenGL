@@ -2,7 +2,7 @@
 
 
 
-Pyramid::Pyramid()
+Pyramid::Pyramid(std::string name) : Shape(name)
 {
 
 	Vertex vertices[] =

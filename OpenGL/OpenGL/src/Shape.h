@@ -17,7 +17,7 @@ class Shape
 {
 	
 public:
-	Shape();
+	Shape(std::string objName);
 	void Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi);
 	void Update(Shader* program);
 	void Draw(Shader* program);
@@ -40,7 +40,7 @@ private:
 
 	
 	
-
+	std::string objName;
 	unsigned number_of_vertices;
 	unsigned number_of_indices;
 	
@@ -55,6 +55,8 @@ private:
 	VertexArray VAO;
 	VertexBuffer VBO;
 	ElementBuffer EBO;
+
+	glm::vec3 lightPos0;
 
 };
 

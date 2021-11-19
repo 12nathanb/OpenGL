@@ -4,6 +4,6 @@
 class Cube : public Shape
 {
 public:
-	Cube();
+	Cube(std::string name);
 };
 

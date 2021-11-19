@@ -1,6 +1,6 @@
 #include "Input.h"
 
-Input::Input()
+Input::Input(GLFWwindow* window)
 {
     GLFWvidmode return_struct;
 }
@@ -20,6 +20,18 @@ bool Input::isKeyPressed(GLFWwindow* window, int keycode)
     return state == GLFW_PRESS || state == GLFW_REPEAT;
 }
 
+bool Input::isMouseKeyPressed(GLFWwindow* window, int keycode)
+{
+    int state = glfwGetMouseButton(window, keycode);
+    if (state == GLFW_PRESS)
+    {
+        std::cout << "pressed" << "\n";
+    }
+
+    return state == GLFW_PRESS;
+    
+}
+
 std::pair<float, float> Input::getMousePos(GLFWwindow* window)
 {
     double xpos, ypos;
@@ -28,19 +40,4 @@ std::pair<float, float> Input::getMousePos(GLFWwindow* window)
     return { (float)xpos, (float)ypos };
 }
 
-float Input::getMouseX(GLFWwindow* window)
-{
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
-
-    return ypos;
-}
-
-float Input::getMouseY(GLFWwindow* window)
-{
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
-
-    return xpos;
-}
 

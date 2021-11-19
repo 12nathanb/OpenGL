@@ -13,6 +13,8 @@ public:
 		GLint diffuseTex,
 		GLint specularTex);
 
+
+
 	void sendToShader(Shader& programID);
 
 private:
@@ -21,5 +23,6 @@ private:
 	glm::vec3 specular;
 	GLint diffuseTex;
 	GLint specularTex;
+	glm::vec3 lightPos0;
 };
 

@@ -1,6 +1,6 @@
 #include "Cube.h"
 
-Cube::Cube()
+Cube::Cube(std::string name) : Shape(name)
 {
 	Vertex vertices[] =
 	{

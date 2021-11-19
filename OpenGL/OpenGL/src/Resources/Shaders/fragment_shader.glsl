@@ -39,7 +39,7 @@ void main()
 	//specular Light
 	vec3 lightToPosDirVec = normalize(vs_position - lightPos0);
 	vec3 reflectDirVec = normalize(reflect(lightToPosDirVec, normalize(vs_normal)));
-	vec3 posToViewDirVec = normalize(cameraPos - vs_position);
+	vec3 posToViewDirVec = normalize(vs_position - cameraPos);
 	float specularConstant = pow(max(dot(posToViewDirVec, reflectDirVec), 0), 30);
 	vec3 specularFinal = material.specular * specularConstant;
 

@@ -1,10 +1,12 @@
 #include "Shape.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 
-Shape::Shape()
+Shape::Shape(std::string objName)
 {
-
-	
+	this->objName = objName;
 }
 
 void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi)
@@ -52,7 +54,12 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 void Shape::Update(Shader* program)
 {
-	
+	std::string name = this->objName + "_rotate";
+	ImGui::Begin("Object Settings");
+	ImGui::SliderFloat3(this->objName.c_str(), (float*)&Position, -10.0f, 10.0f);
+	ImGui::SliderFloat3(name.c_str(), (float*)&Rotation, -90.0f, 90.0f);
+	ImGui::End();
+
 	
 	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
 

@@ -5,7 +5,7 @@
 class Triangle : public Shape
 {
 public:
-	Triangle();
+	Triangle(std::string name);
 
 };
 

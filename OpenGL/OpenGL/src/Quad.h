@@ -4,7 +4,7 @@
 class Quad :  public Shape
 {
 public:
-	Quad();
+	Quad(std::string name);
 
 	
 private:

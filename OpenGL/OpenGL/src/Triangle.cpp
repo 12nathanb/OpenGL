@@ -1,6 +1,6 @@
 #include "Triangle.h"
 
-Triangle::Triangle()
+Triangle::Triangle(std::string name) : Shape(name)
 {
 	Vertex vertices[] =
 	{

@@ -2,7 +2,7 @@
 
 
 
-Quad::Quad()
+Quad::Quad(std::string name) : Shape(name)
 {
 	GLuint indices[] =
 	{
