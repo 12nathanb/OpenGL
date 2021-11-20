@@ -106,9 +106,11 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\material.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Pyramid.cpp" />
     <ClCompile Include="src\Quad.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -133,9 +135,11 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\ElementBuffer.h" />
+    <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\material.h" />
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Pyramid.h" />
     <ClInclude Include="src\Quad.h" />
     <ClInclude Include="src\libs.h" />

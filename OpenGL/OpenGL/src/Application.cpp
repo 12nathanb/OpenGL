@@ -1,7 +1,6 @@
 #pragma once
 #include "libs.h"
 #include "Triangle.h"
-#include "Quad.h"
 #include "Shader.h"
 #include "Window.h"
 #include "Input.h"
@@ -11,6 +10,7 @@
 #include"Pyramid.h"
 #include "Light.h"
 #include "Cube.h"
+#include "Game.h"
 
 int main(void)
 {
@@ -60,41 +60,16 @@ int main(void)
     ImGui_ImplOpenGL3_Init("#version 330");
     ImGui::SetNextWindowPos(ImVec2(0, 0));
 
-    Shader core_program("vertex_shader.glsl", "fragment_shader.glsl");
+    //Shader core_program("vertex_shader.glsl", "fragment_shader.glsl");
 
-    Camera camera(&core_program);
-    camera.SetCameraPos(glm::vec3(0.0f, 0.0f, 3.0f));
-    Input input(window.getWindow());
-    Audio audio;
-    Light light;
-    //audio.loadFile("test.WAV", true);
-    //Pyramid t("t");
-    Cube t2("t2");
-    Cube t3("T3");
+    Game game(window.getWindow(), WINDOW_WIDTH, WINDOW_HEIGHT, frame_buffer_width, frame_buffer_height);
 
-    int amount = 10;
-
-    float ambientAmount = 1.1f;
-    float diffuseAmount = 0.1f;
-    float specularAmount = 0.1f;
-    std::pair<float, float> mousePos;
-    Texture texture0;
-    texture0.init("box.jpg", GL_TEXTURE_2D, 0);
-    material material0;
-    
-    //t.SetPosition(glm::vec3(0, 0, 0));
-    t2.SetPosition(glm::vec3(2, 0, 0));
-    t3.SetPosition(glm::vec3(-2, 0, 0));
-    /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window.getWindow()))
     {
-        core_program.use();
-        texture0.bind();
-        /* Poll for and process events */
+
         
         glfwPollEvents();
-        material0.init(glm::vec3(ambientAmount), glm::vec3(diffuseAmount), glm::vec3(specularAmount), texture0.getID(), texture0.getID());
-        material0.sendToShader(core_program);
+
         /* Render here */
         glClearColor(0.f, 0.f, 0.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -102,64 +77,18 @@ int main(void)
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-
-        ImGui::Begin("Object Settings");
-
-        ImGui::SliderFloat("Ambient", &ambientAmount, 0.1f, 10.f);
-        ImGui::SliderFloat("Diffuse", &diffuseAmount, 0.1f, 10.f);
-        ImGui::SliderFloat("Specular", &specularAmount, 0.1f, 10.f);
-
-
-
+        ImGui::Begin(" ");
+        
         ImGui::End();
 
-        
-        input.Update(window.getWindow());
-     
-        
-        camera.Update(&core_program, window.getWindow(), frame_buffer_width, frame_buffer_height);
+        game.Update();
+        game.Keyboard_Input();
+        game.Mouse_Input();
+        game.Draw();
 
-
-       // t.Update(&core_program);
-        t2.Update(&core_program);
-        t3.Update(&core_program);
-        //Camera controls
-        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_UP) || input.isKeyPressed(window.getWindow(), GLFW_KEY_W))
-        {
-            camera.MoveCamera(glm::vec3(NULL, NULL, -0.01));
-        }
-
-        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_DOWN) || input.isKeyPressed(window.getWindow(), GLFW_KEY_S))
-        {
-            camera.MoveCamera(glm::vec3(NULL, NULL, 0.01));
-        }
-
-        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_LEFT) || input.isKeyPressed(window.getWindow(), GLFW_KEY_A))
-        {
-            camera.MoveCamera(glm::vec3(-0.01, NULL, NULL));
-        }
-
-        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_RIGHT) || input.isKeyPressed(window.getWindow(), GLFW_KEY_D))
-        {
-            camera.MoveCamera(glm::vec3(0.01, NULL, NULL));
-        }
-
-        if (input.isKeyPressed(window.getWindow(), GLFW_KEY_ESCAPE))
-        {
-            glfwTerminate();
-            return 0;
-        }
-
-        input.isMouseKeyPressed(window.getWindow(), GLFW_MOUSE_BUTTON_RIGHT);
-
-       // t.Draw(&core_program);
-        t2.Draw(&core_program);
-        t3.Draw(&core_program);
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        /* Swap front and back buffers */
         glfwSwapBuffers(window.getWindow());
         glFlush();
     }
@@ -171,24 +100,4 @@ int main(void)
     glfwTerminate();
 
     return 0;
-}
-
-void init()
-{
-    
-}
-
-void input()
-{
-
-}
-
-void update()
-{
-
-}
-
-void draw()
-{
-
 }

@@ -15,7 +15,7 @@ public:
 
 
 
-	void sendToShader(Shader& programID);
+	void sendToShader(Shader* programID);
 
 private:
 	glm::vec3 ambient;

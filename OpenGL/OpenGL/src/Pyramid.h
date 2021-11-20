@@ -4,6 +4,6 @@
 class Pyramid : public Shape
 {
 public:
-	Pyramid(std::string name);
+	Pyramid(std::string name, std::string filename);
 };
 

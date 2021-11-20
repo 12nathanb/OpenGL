@@ -17,12 +17,12 @@ void material::init(glm::vec3 ambient,
 
 
 
-void material::sendToShader(Shader& program)
+void material::sendToShader(Shader* program)
 {
-	program.setVec3f(this->ambient, "material.ambient");
-	program.setVec3f(this->diffuse, "material.diffuse");
-	program.setVec3f(this->specular, "material.specular");
+	program->setVec3f(this->ambient, "material.ambient");
+	program->setVec3f(this->diffuse, "material.diffuse");
+	program->setVec3f(this->specular, "material.specular");
 
-	program.setVec1i(this->diffuseTex, "material.diffuseTex");
-	program.setVec1i(this->specularTex, "material.specularTex");
+	program->setVec1i(this->diffuseTex, "material.diffuseTex");
+	program->setVec1i(this->specularTex, "material.specularTex");
 }

@@ -17,19 +17,22 @@ class Shape
 {
 	
 public:
-	Shape(std::string objName);
+	Shape();
 	void Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi);
-	void Update(Shader* program);
-	void Draw(Shader* program);
+	void Update();
+	void Draw();
 	void SetScale(glm::vec3 s) { Scale = s; }
 	void SetPosition(glm::vec3 p) { Position = p;  }
 	void SetRotation(glm::vec3 r) { Rotation = r; }
 	void SetTexture(std::string fileName);
 	void MoveObject(glm::vec3 p) { Position += p; }
 	void RotateObject(glm::vec3 r) { Rotation += r; }
+	void setObjName(std::string name) { objName = name; }
+	Shader* getShader() { return core_program; }
 private:
 	void updateModelMatrix();
 	void updateUniforms(Shader* program) { program->setMat4fv(this->ModelMatrix, "ModelMatrix"); }
+	
 
 private:
 	glm::mat4 ModelMatrix;
@@ -57,6 +60,12 @@ private:
 	ElementBuffer EBO;
 
 	glm::vec3 lightPos0;
+
+	float ambientAmount = 1.1f;
+	float diffuseAmount = 0.1f;
+	float specularAmount = 0.1f;
+
+	Shader* core_program;
 
 };
 

@@ -2,8 +2,9 @@
 
 
 
-Quad::Quad(std::string name) : Shape(name)
+Quad::Quad(std::string name)
 {
+	this->setObjName(name);
 	GLuint indices[] =
 	{
 		0, 1, 2,

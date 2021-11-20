@@ -1,12 +1,12 @@
 #pragma once
 #include <glm.hpp>
 #include "Shader.h"
-
+#include <vector>
 class Camera
 {
 public:
-    Camera(Shader* program);
-    void Update(Shader* program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height);
+    Camera(std::vector<Shader*> program);
+    void Update(std::vector<Shader*> program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height);
     void SetCameraPos(glm::vec3 CP) { camPostion = CP; }
     void MoveCamera(glm::vec3 CP) { camPostion += CP; }
     void SetWorldUp(glm::vec3 WU) { worldUp = WU; }

@@ -4,13 +4,14 @@
 #include "imgui_impl_opengl3.h"
 
 
-Shape::Shape(std::string objName)
+Shape::Shape()
 {
-	this->objName = objName;
 }
 
 void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi)
 {
+	core_program = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
+
 	for (size_t i = 0; i < num_of_vert; i++)
 	{
 		this->vertArray.push_back(vertexArray[i]);
@@ -52,30 +53,48 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 }
 
-void Shape::Update(Shader* program)
+void Shape::Update()
 {
-	std::string name = this->objName + "_rotate";
-	ImGui::Begin("Object Settings");
-	ImGui::SliderFloat3(this->objName.c_str(), (float*)&Position, -10.0f, 10.0f);
-	ImGui::SliderFloat3(name.c_str(), (float*)&Rotation, -90.0f, 90.0f);
+	std::string title = this->objName + " settings";
+	std::string position = this->objName + "_position";
+	std::string rotate = this->objName + "_rotate";
+	std::string scale = this->objName + "_scale";
+	std::string ambient = this->objName + "_Ambient";
+	std::string diffuse = this->objName + "_Diffuse";
+	std::string specular = this->objName + "_Specular";
+	std::string light = this->objName + "_light";
+
+	ImGui::Begin(title.c_str());
+
+	ImGui::SliderFloat3(position.c_str(), (float*)&Position, -10.0f, 10.0f);
+	ImGui::SliderFloat3(rotate.c_str(), (float*)&Rotation, -180.0f, 180.0f);
+	ImGui::SliderFloat3(scale.c_str(), (float*)&Scale, -5.0f, 5.0f);
+	ImGui::SliderFloat(ambient.c_str(), &ambientAmount, 0.1f, 10.f);
+	ImGui::SliderFloat(diffuse.c_str(), &diffuseAmount, 0.1f, 10.f);
+	ImGui::SliderFloat(specular.c_str(), &specularAmount, 0.1f, 10.f);
+	ImGui::SliderFloat3(light.c_str(), (float*)&lightPos0, 0.0f, 10.0f);
+
 	ImGui::End();
 
-	
+
+	material0.init(glm::vec3(ambientAmount), glm::vec3(diffuseAmount), glm::vec3(specularAmount), texture0.getID(), texture0.getID());
 	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
 
 	
-	program->setVec3f(lightPos0, "lightPos0");
+	core_program->setVec3f(lightPos0, "lightPos0");
 	
 
 }
 
-void Shape::Draw(Shader* program)
+
+void Shape::Draw()
 {
 	this->updateModelMatrix();
-	this->updateUniforms(program);
+	this->updateUniforms(core_program);
+	texture0.bind();
+	material0.sendToShader(core_program);
+	core_program->use();
 
-	program->use();
-	
 	glBindVertexArray(VAO.GetVertexArray());
 
 	if (this->number_of_indices == 0)
@@ -95,14 +114,11 @@ void Shape::Draw(Shader* program)
 void Shape::SetTexture(std::string fileName)
 {
 	const char* test = fileName.c_str(); 
-
 	
+	texture0.init(fileName.c_str(), GL_TEXTURE_2D, 0);
 	
-	//texture0.init(fileName.c_str(), GL_TEXTURE_2D, 0);
-
-	
-	//material0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
-	
+	material0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
+	std::cout << "texture id: " << texture0.getID() << "\n";
 }
 
 void Shape::updateModelMatrix()
