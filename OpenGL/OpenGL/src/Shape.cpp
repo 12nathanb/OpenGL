@@ -55,35 +55,11 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 
 void Shape::Update()
 {
-	std::string title = this->objName + " settings";
-	std::string position = this->objName + "_position";
-	std::string rotate = this->objName + "_rotate";
-	std::string scale = this->objName + "_scale";
-	std::string ambient = this->objName + "_Ambient";
-	std::string diffuse = this->objName + "_Diffuse";
-	std::string specular = this->objName + "_Specular";
-	std::string light = this->objName + "_light";
-
-	ImGui::Begin(title.c_str());
-
-	ImGui::SliderFloat3(position.c_str(), (float*)&Position, -10.0f, 10.0f);
-	ImGui::SliderFloat3(rotate.c_str(), (float*)&Rotation, -180.0f, 180.0f);
-	ImGui::SliderFloat3(scale.c_str(), (float*)&Scale, -5.0f, 5.0f);
-	ImGui::SliderFloat(ambient.c_str(), &ambientAmount, 0.1f, 10.f);
-	ImGui::SliderFloat(diffuse.c_str(), &diffuseAmount, 0.1f, 10.f);
-	ImGui::SliderFloat(specular.c_str(), &specularAmount, 0.1f, 10.f);
-	ImGui::SliderFloat3(light.c_str(), (float*)&lightPos0, 0.0f, 10.0f);
-
-	ImGui::End();
-
-
 	material0.init(glm::vec3(ambientAmount), glm::vec3(diffuseAmount), glm::vec3(specularAmount), texture0.getID(), texture0.getID());
 	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
-
 	
 	core_program->setVec3f(lightPos0, "lightPos0");
-	
-
+	ShapeMenu();
 }
 
 
@@ -129,4 +105,28 @@ void Shape::updateModelMatrix()
 	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	this->ModelMatrix = glm::scale(this->ModelMatrix, this->Scale);
+}
+
+void Shape::ShapeMenu()
+{
+	std::string title = this->objName + " settings";
+	std::string position = this->objName + "_position";
+	std::string rotate = this->objName + "_rotate";
+	std::string scale = this->objName + "_scale";
+	std::string ambient = this->objName + "_Ambient";
+	std::string diffuse = this->objName + "_Diffuse";
+	std::string specular = this->objName + "_Specular";
+	std::string light = this->objName + "_light";
+
+
+	ImGui::Begin(title.c_str());
+
+	ImGui::SliderFloat3(position.c_str(), (float*)&Position, -10.0f, 10.0f);
+	ImGui::SliderFloat3(rotate.c_str(), (float*)&Rotation, -180.0f, 180.0f);
+	ImGui::SliderFloat3(scale.c_str(), (float*)&Scale, -5.0f, 5.0f);
+	ImGui::SliderFloat(ambient.c_str(), &ambientAmount, 0.1f, 10.f);
+	ImGui::SliderFloat(diffuse.c_str(), &diffuseAmount, 0.1f, 10.f);
+	ImGui::SliderFloat(specular.c_str(), &specularAmount, 0.1f, 10.f);
+	ImGui::SliderFloat3(light.c_str(), (float*)&lightPos0, 0.0f, 10.0f);
+	ImGui::End();
 }

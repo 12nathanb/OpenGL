@@ -32,6 +32,7 @@ public:
 private:
 	void updateModelMatrix();
 	void updateUniforms(Shader* program) { program->setMat4fv(this->ModelMatrix, "ModelMatrix"); }
+	void ShapeMenu();
 	
 
 private:

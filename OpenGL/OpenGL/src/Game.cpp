@@ -13,7 +13,6 @@ Game::Game(GLFWwindow* window, int WindowWidth, int WindowHeight, int framebuffe
 
 void Game::Init()
 {
-	//core_program = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
 	shapeVec.push_back(new Cube("t3", "box.jpg"));
 	shapeVec.push_back(new Pyramid("pyramid", "box.jpg"));
 
@@ -21,16 +20,6 @@ void Game::Init()
 	{
 		shaderVec.push_back(shapeVec[i]->getShader());
 	}
-
-	//t3 = new Cube("t3");
-	//t3->SetTexture("box.jpg");
-	//
-
-	//t4 = new Cube("t4");
-	//t4->SetTexture("mario.jpg");
-	//shaderVec.push_back(t4->getShader());
-
-	
 	
 	camera = new Camera(shaderVec);
 
@@ -40,6 +29,7 @@ void Game::Init()
 	light = new Light();
 	input = new Input(Window);
 	
+	menu = new Menu(this->Window);
 
 	camera->SetCameraPos(glm::vec3(0.0f, 0.0f, 3.0f));
 }
@@ -48,12 +38,11 @@ void Game::Keyboard_Input()
 {
 	if (input->isKeyPressed(Window, GLFW_KEY_UP) || input->isKeyPressed(Window, GLFW_KEY_W))
 	{
-		camera->MoveCamera(glm::vec3(NULL, NULL, -0.01));
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_DOWN) || input->isKeyPressed(Window, GLFW_KEY_S))
 	{
-		camera->MoveCamera(glm::vec3(NULL, NULL, 0.01));
+		
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_LEFT) || input->isKeyPressed(Window, GLFW_KEY_A))
@@ -69,18 +58,45 @@ void Game::Keyboard_Input()
 	if (input->isKeyPressed(Window, GLFW_KEY_ESCAPE))
 	{
 		glfwTerminate();
-		//return 0;
 	}
+
+	
 }
 
 void Game::Mouse_Input()
 {
-	input->isMouseKeyPressed(Window, GLFW_MOUSE_BUTTON_RIGHT);
-}
+	mousePos = input->getMousePos(Window);
+	if (input->getScrollY() >= 1)
+	{
 
+		camera->MoveCamera(glm::vec3(NULL, NULL, -0.3));
+		input->setScrollY();
+	}
+
+	if (input->getScrollY() < 0)
+	{
+		camera->MoveCamera(glm::vec3(NULL, NULL, 0.3));
+		input->setScrollY();
+	}
+	input->isMouseKeyPressed(Window, 0);
+	input->isMouseKeyPressed(Window, 1);
+
+	if (input->isMouseKeyPressed(Window, 2))
+	{
+		
+	}
+
+
+	input->isMouseKeyPressed(Window, 3);
+	input->isMouseKeyPressed(Window, 4);
+	input->isMouseKeyPressed(Window, 5);
+	input->isMouseKeyPressed(Window, 6);
+
+}
 
 void Game::Update()
 {
+	menu->Update();
 	input->Update(Window);
 	
 	for (int i = 0; i < shapeVec.size(); i++)
@@ -88,18 +104,16 @@ void Game::Update()
 		shapeVec[i]->Update();
 	}
 
-
-	//t3->Update();
-	//t4->Update();
 	camera->Update(shaderVec, Window, frameBufferWidth, frameBufferHeight);
 }
 
 void Game::Draw()
 {
+	
 	for (int i = 0; i < shapeVec.size(); i++)
 	{
 		shapeVec[i]->Draw();
 	}
-	//t3->Draw();
-	//t4->Draw();
+
+	menu->Draw();
 }

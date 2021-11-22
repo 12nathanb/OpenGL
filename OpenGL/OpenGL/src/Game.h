@@ -5,6 +5,7 @@
 #include "Light.h"
 #include "Input.h"
 #include "Pyramid.h"
+#include "Menu.h"
 
 class Game
 {
@@ -13,7 +14,6 @@ public:
 	void Init();
 	void Keyboard_Input();
 	void Mouse_Input();
-	void textureBind();
 	void Update();
 	void Draw();
 private:
@@ -33,4 +33,6 @@ private:
 	Shader* core_program;
 	std::vector<Shader*> shaderVec;
 	std::vector<Shape*> shapeVec;
+	Menu* menu;
+	std::pair<float, float> mousePos;
 };
