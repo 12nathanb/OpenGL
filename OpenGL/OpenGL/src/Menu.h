@@ -2,7 +2,8 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
+#include "libs.h"
+#include<string>  
 class Menu
 {
 public:
@@ -15,6 +16,9 @@ private:
         ImGuiWindowFlags_NoMove |
         ImGuiWindowFlags_NoResize |
         ImGuiWindowFlags_NoTitleBar;
+
+	int width, height;
+	GLFWwindow* window;
 
 };
 

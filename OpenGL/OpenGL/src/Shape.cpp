@@ -119,7 +119,7 @@ void Shape::ShapeMenu()
 	std::string light = this->objName + "_light";
 
 
-	ImGui::Begin(title.c_str());
+	ImGui::BeginChild(title.c_str(), ImVec2(0, ImGui::GetFontSize() * 20.0f), true, ImGuiWindowFlags_MenuBar);
 
 	ImGui::SliderFloat3(position.c_str(), (float*)&Position, -10.0f, 10.0f);
 	ImGui::SliderFloat3(rotate.c_str(), (float*)&Rotation, -180.0f, 180.0f);
@@ -128,5 +128,5 @@ void Shape::ShapeMenu()
 	ImGui::SliderFloat(diffuse.c_str(), &diffuseAmount, 0.1f, 10.f);
 	ImGui::SliderFloat(specular.c_str(), &specularAmount, 0.1f, 10.f);
 	ImGui::SliderFloat3(light.c_str(), (float*)&lightPos0, 0.0f, 10.0f);
-	ImGui::End();
+	ImGui::EndChild();
 }

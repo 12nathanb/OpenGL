@@ -28,6 +28,7 @@ public:
 	void MoveObject(glm::vec3 p) { Position += p; }
 	void RotateObject(glm::vec3 r) { Rotation += r; }
 	void setObjName(std::string name) { objName = name; }
+	std::string getObjName() { return objName; }
 	Shader* getShader() { return core_program; }
 private:
 	void updateModelMatrix();

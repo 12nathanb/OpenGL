@@ -13,8 +13,8 @@ Game::Game(GLFWwindow* window, int WindowWidth, int WindowHeight, int framebuffe
 
 void Game::Init()
 {
-	shapeVec.push_back(new Cube("t3", "box.jpg"));
-	shapeVec.push_back(new Pyramid("pyramid", "box.jpg"));
+	//shapeVec.push_back(new Cube("t3", "box.jpg"));
+	//shapeVec.push_back(new Pyramid("pyramid", "box.jpg"));
 
 	for (int i = 0; i < shapeVec.size(); i++)
 	{
@@ -38,11 +38,12 @@ void Game::Keyboard_Input()
 {
 	if (input->isKeyPressed(Window, GLFW_KEY_UP) || input->isKeyPressed(Window, GLFW_KEY_W))
 	{
+		camera->MoveCamera(glm::vec3(NULL, 0.01, NULL));
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_DOWN) || input->isKeyPressed(Window, GLFW_KEY_S))
 	{
-		
+		camera->MoveCamera(glm::vec3(NULL, -0.01, NULL));
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_LEFT) || input->isKeyPressed(Window, GLFW_KEY_A))
@@ -78,7 +79,10 @@ void Game::Mouse_Input()
 		camera->MoveCamera(glm::vec3(NULL, NULL, 0.3));
 		input->setScrollY();
 	}
-	input->isMouseKeyPressed(Window, 0);
+	if (input->isMouseKeyPressed(Window, 0))
+	{
+
+	}
 	input->isMouseKeyPressed(Window, 1);
 
 	if (input->isMouseKeyPressed(Window, 2))
@@ -96,13 +100,58 @@ void Game::Mouse_Input()
 
 void Game::Update()
 {
+	
+	
+	
 	menu->Update();
-	input->Update(Window);
+	
+	ImGui::Begin("Create Objects");
+	static char str1[128] = "";
+	ImGui::InputText("Object Name", str1, IM_ARRAYSIZE(str1));
+	static char str2[128] = "";
+	ImGui::InputText("Object texture", str2, IM_ARRAYSIZE(str1));
+	const char* listbox_items[] = { "Cube", "Pyramid"};
+	static int listbox_item_current = 0;
+	ImGui::ListBox("Choose Object Type", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
+
+	if (ImGui::Button("Create Object") && strlen(str1) != 0 && strlen(str2) != 0)
+	{
+		bool create = true;
+
+		for (int i = 0; i < shapeVec.size(); i++)
+		{
+			if (shapeVec[i]->getObjName() == str1)
+			{
+				create = false;
+			}
+		}
+
+		if (create == true)
+		{
+			std::cout << "Current Object count: " << shapeVec.size() << "\n";
+			if (listbox_item_current == 0)
+			{
+				shapeVec.push_back(new Cube(str1, str2));
+			}
+			else if (listbox_item_current == 1)
+			{
+				shapeVec.push_back(new Pyramid(str1, str2));
+			}
+
+			shaderVec.push_back(shapeVec.back()->getShader());
+		}
+		
+	}
+	ImGui::End();
 	
 	for (int i = 0; i < shapeVec.size(); i++)
 	{
 		shapeVec[i]->Update();
 	}
+
+	input->Update(Window);
+	
+	
 
 	camera->Update(shaderVec, Window, frameBufferWidth, frameBufferHeight);
 }
