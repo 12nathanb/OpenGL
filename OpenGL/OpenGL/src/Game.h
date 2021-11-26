@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Pyramid.h"
 #include "Menu.h"
+#include "gameObject.h"
 
 class Game
 {
@@ -16,15 +17,27 @@ public:
 	void Mouse_Input();
 	void Update();
 	void Draw();
+	void updateDt();
+
 private:
 	GLFWwindow* Window;
 	int WindowWidth;
 	int WindowHeight;
 	int frameBufferWidth;
 	int frameBufferHeight;
-
+	float dt;
+	float curTime;
+	float lastTime;
 	Cube* t3;
 	Cube* t4;
+
+	double lastMouseX;
+	double lastMouseY;
+	double mouseX;
+	double mouseY;
+	double mouseOffsetX;
+	double mouseOffsetY;
+	bool firstMouse;
 
 	Camera* camera;
 	Audio* audio;
@@ -35,4 +48,5 @@ private:
 	std::vector<Shape*> shapeVec;
 	Menu* menu;
 	std::pair<float, float> mousePos;
+
 };

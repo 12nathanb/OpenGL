@@ -2,7 +2,18 @@
 
 Game::Game(GLFWwindow* window, int WindowWidth, int WindowHeight, int framebufferWidth, int frameBufferHight)
 {
+	
 	//this->core_program = program;
+	this->dt = 0.f;
+	this->lastMouseX = 0.0;
+	this->lastMouseY = 0.0;
+	this->mouseX = 0.0;
+	this->mouseY = 0.0;
+	this->mouseOffsetX = 0.0;
+	this->mouseOffsetY = 0.0;
+	this->firstMouse = true;
+
+
 	this->WindowHeight = WindowHeight;
 	this->WindowWidth = WindowWidth;
 	this->Window = window;
@@ -12,15 +23,7 @@ Game::Game(GLFWwindow* window, int WindowWidth, int WindowHeight, int framebuffe
 }
 
 void Game::Init()
-{
-	//shapeVec.push_back(new Cube("t3", "box.jpg"));
-	//shapeVec.push_back(new Pyramid("pyramid", "box.jpg"));
-
-	for (int i = 0; i < shapeVec.size(); i++)
-	{
-		shaderVec.push_back(shapeVec[i]->getShader());
-	}
-	
+{	
 	camera = new Camera(shaderVec);
 
 	audio = new Audio();
@@ -36,24 +39,26 @@ void Game::Init()
 
 void Game::Keyboard_Input()
 {
+	this->updateDt();
+
 	if (input->isKeyPressed(Window, GLFW_KEY_UP) || input->isKeyPressed(Window, GLFW_KEY_W))
 	{
-		camera->MoveCamera(glm::vec3(NULL, 0.01, NULL));
+		camera->move(dt, FORWARD);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_DOWN) || input->isKeyPressed(Window, GLFW_KEY_S))
 	{
-		camera->MoveCamera(glm::vec3(NULL, -0.01, NULL));
+		camera->move(dt, BACKWARD);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_LEFT) || input->isKeyPressed(Window, GLFW_KEY_A))
 	{
-		camera->MoveCamera(glm::vec3(-0.01, NULL, NULL));
+		camera->move(dt, LEFT);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_RIGHT) || input->isKeyPressed(Window, GLFW_KEY_D))
 	{
-		camera->MoveCamera(glm::vec3(0.01, NULL, NULL));
+		camera->move(dt, RIGHT);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_ESCAPE))
@@ -67,6 +72,31 @@ void Game::Keyboard_Input()
 void Game::Mouse_Input()
 {
 	mousePos = input->getMousePos(Window);
+
+	glfwGetCursorPos(this->Window, &this->mouseX, &this->mouseY);
+
+	if (this->firstMouse)
+	{
+		this->lastMouseX = this->mouseX;
+		this->lastMouseY = this->mouseY;
+		this->firstMouse = false;
+	}
+
+	//Calc offset
+	this->mouseOffsetX = this->mouseX - this->lastMouseX;
+	this->mouseOffsetY = this->lastMouseY - this->mouseY;
+
+	//Set last X and Y
+	this->lastMouseX = this->mouseX;
+	this->lastMouseY = this->mouseY;
+
+	if (input->isMouseKeyPressed(Window, 2))
+	{
+		
+
+
+		camera->updateInput(dt, -1, this->mouseOffsetX, this->mouseOffsetY);
+	}
 	if (input->getScrollY() >= 1)
 	{
 
@@ -85,10 +115,7 @@ void Game::Mouse_Input()
 	}
 	input->isMouseKeyPressed(Window, 1);
 
-	if (input->isMouseKeyPressed(Window, 2))
-	{
-		
-	}
+	
 
 
 	input->isMouseKeyPressed(Window, 3);
@@ -109,10 +136,16 @@ void Game::Update()
 	static char str1[128] = "";
 	ImGui::InputText("Object Name", str1, IM_ARRAYSIZE(str1));
 	static char str2[128] = "";
-	ImGui::InputText("Object texture", str2, IM_ARRAYSIZE(str1));
-	const char* listbox_items[] = { "Cube", "Pyramid"};
+	ImGui::InputText("Object texture", str2, IM_ARRAYSIZE(str2));
+	static char str3[128] = "";
+	const char* listbox_items[] = { "Cube", "Pyramid", "custom"};
 	static int listbox_item_current = 0;
 	ImGui::ListBox("Choose Object Type", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
+
+	if (listbox_item_current == 2)
+	{
+		ImGui::InputText("obj file", str3, IM_ARRAYSIZE(str3));
+	}
 
 	if (ImGui::Button("Create Object") && strlen(str1) != 0 && strlen(str2) != 0)
 	{
@@ -128,17 +161,26 @@ void Game::Update()
 
 		if (create == true)
 		{
-			std::cout << "Current Object count: " << shapeVec.size() << "\n";
-			if (listbox_item_current == 0)
+			if (listbox_item_current != 2)
 			{
-				shapeVec.push_back(new Cube(str1, str2));
-			}
-			else if (listbox_item_current == 1)
-			{
-				shapeVec.push_back(new Pyramid(str1, str2));
-			}
+				std::cout << "Current Object count: " << shapeVec.size() << "\n";
+				if (listbox_item_current == 0)
+				{
+					shapeVec.push_back(new Cube(str1, str2));
+				}
+				else if (listbox_item_current == 1)
+				{
+					shapeVec.push_back(new Pyramid(str1, str2));
+				}
 
-			shaderVec.push_back(shapeVec.back()->getShader());
+				shaderVec.push_back(shapeVec.back()->getShader());
+			}
+			else if (listbox_item_current == 2 && strlen(str3) != 0)
+			{
+				shapeVec.push_back(new gameObject(str1, str3, str2));
+				shaderVec.push_back(shapeVec.back()->getShader());
+			}
+			
 		}
 		
 	}
@@ -165,4 +207,11 @@ void Game::Draw()
 	}
 
 	menu->Draw();
+}
+
+void Game::updateDt()
+{
+	this->curTime = static_cast<float>(glfwGetTime());
+	this->dt = this->curTime - this->lastTime;
+	this->lastTime = this->curTime;
 }

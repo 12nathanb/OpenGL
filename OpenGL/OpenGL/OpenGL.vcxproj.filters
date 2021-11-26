@@ -34,6 +34,9 @@
     <Filter Include="Header Files\imgui">
       <UniqueIdentifier>{3d5e84ef-30dc-4cd1-b909-174af9b727c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Graphics\Custom">
+      <UniqueIdentifier>{156249e0-8103-4f20-abcb-37eedc227da2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -111,13 +114,13 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MouseScroll.cpp">
+    <ClCompile Include="src\LoadObjModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,13 +206,13 @@
     <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MouseScroll.h">
+    <ClInclude Include="src\LoadObjModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

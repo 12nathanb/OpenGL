@@ -51,6 +51,8 @@ int main(void)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    
+
     Game game(window.getWindow(), WINDOW_WIDTH, WINDOW_HEIGHT, frame_buffer_width, frame_buffer_height);
 
     while (!glfwWindowShouldClose(window.getWindow()))

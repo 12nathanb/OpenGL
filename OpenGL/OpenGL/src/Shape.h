@@ -30,10 +30,12 @@ public:
 	void setObjName(std::string name) { objName = name; }
 	std::string getObjName() { return objName; }
 	Shader* getShader() { return core_program; }
+	void createShape(std::vector<Vertex> vert, std::vector<GLuint> indi);
 private:
 	void updateModelMatrix();
 	void updateUniforms(Shader* program) { program->setMat4fv(this->ModelMatrix, "ModelMatrix"); }
 	void ShapeMenu();
+	
 	
 
 private:

@@ -2,6 +2,8 @@
 #include <glm.hpp>
 #include "Shader.h"
 #include <vector>
+enum direction { FORWARD = 0, BACKWARD, LEFT, RIGHT };
+
 class Camera
 {
 public:
@@ -17,14 +19,17 @@ public:
     glm::vec3 GetCameraPos() { return camPostion; }
     glm::vec3 GetWorldUp() { return worldUp; }
     glm::vec3 GetCamFront() { return camFront; }
-    glm::mat4 GetViewMatrix() { return ViewMatrix; }
+    glm::mat4 GetViewMatrix();
     glm::mat4 GetProjectionMatrix() { return ProjectionMatrix; }
+    void move(const float& dt, const int direction);
+    void updateMouseInput(const float& dt, const double& offsetX, const double& offsetY);
+    void updateInput(const float& dt, const int direction, const double& offsetX, const double& offsetY);
 
 private:
     void updateCameraVectors();
 private:
-    glm::vec3 camPostion;
-    glm::vec3 worldUp;
+    glm::vec3 camPostion = glm::vec3(0.f, 0.f, 1.f);
+    glm::vec3 worldUp = glm::vec3(0.f, 0.f, 0.f);
     glm::vec3 camFront;
     glm::mat4 ViewMatrix;
     glm::mat4 ProjectionMatrix;
@@ -39,5 +44,8 @@ private:
 
     glm::vec3 right;
     glm::vec3 up;
+
+    GLfloat movementSpeed;
+    GLfloat sensitivity;
 };
 

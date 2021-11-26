@@ -22,21 +22,27 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 		this->indiArray.push_back(indexArray[i]);
 	}
 
-	number_of_vertices = num_of_vert;
-	number_of_indices = num_of_indi;
+	createShape(vertArray, indiArray);
+
+}
+
+void Shape::createShape(std::vector<Vertex> vert, std::vector<GLuint> indi)
+{
+	number_of_vertices = vert.size();
+	number_of_indices = indi.size();
 
 	VAO.CreateVertexArray(1);
 
 	VBO.GenerateBuffers(1);
-	VBO.BindBuffer(this->number_of_vertices, this->vertArray.data(), GL_STATIC_DRAW);
+	VBO.BindBuffer(number_of_vertices, vert.data(), GL_STATIC_DRAW);
 
-	if (this->number_of_indices > 0)
+	if (indi.size() > 0)
 	{
 		EBO.GenerateBuffers(1);
-		EBO.BindBuffer(this->number_of_indices, this->indiArray.data(), GL_STATIC_DRAW);
+		EBO.BindBuffer(number_of_indices, indi.data(), GL_STATIC_DRAW);
 	}
-	
 
+	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 	glEnableVertexAttribArray(0);
 
@@ -50,8 +56,8 @@ void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* index
 	glEnableVertexAttribArray(3);
 
 	glBindVertexArray(0);
-
 }
+
 
 void Shape::Update()
 {
@@ -121,12 +127,13 @@ void Shape::ShapeMenu()
 
 	ImGui::BeginChild(title.c_str(), ImVec2(0, ImGui::GetFontSize() * 20.0f), true, ImGuiWindowFlags_MenuBar);
 
-	ImGui::SliderFloat3(position.c_str(), (float*)&Position, -10.0f, 10.0f);
-	ImGui::SliderFloat3(rotate.c_str(), (float*)&Rotation, -180.0f, 180.0f);
-	ImGui::SliderFloat3(scale.c_str(), (float*)&Scale, -5.0f, 5.0f);
+	ImGui::InputFloat3(position.c_str(), (float*)&Position);
+	ImGui::InputFloat3(rotate.c_str(), (float*)&Rotation);
+	ImGui::InputFloat3(scale.c_str(), (float*)&Scale);
 	ImGui::SliderFloat(ambient.c_str(), &ambientAmount, 0.1f, 10.f);
 	ImGui::SliderFloat(diffuse.c_str(), &diffuseAmount, 0.1f, 10.f);
 	ImGui::SliderFloat(specular.c_str(), &specularAmount, 0.1f, 10.f);
 	ImGui::SliderFloat3(light.c_str(), (float*)&lightPos0, 0.0f, 10.0f);
 	ImGui::EndChild();
 }
+
