@@ -2,17 +2,17 @@
 
 Audio::Audio()
 {
-	engine = createIrrKlangDevice();
+	Sound_engine = createIrrKlangDevice();
 }
 
 Audio::~Audio()
 {
-	engine->drop();
+	Sound_engine->drop();
 }
 
 void Audio::loadFile(std::string file, bool loop)
 {
 	std::string f = ".\\src\\Resources\\Audio\\" + file;
-	std::cout << "LOADING AUDIO FILE: " << f << std::endl;
-	engine->play2D(f.c_str(), loop);
+	std::cout << "[Audio.cpp] LOADING AUDIO FILE: " << f << std::endl;
+	Sound_engine->play2D(f.c_str(), loop);
 }

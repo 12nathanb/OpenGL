@@ -5,19 +5,26 @@
 class Input
 {
 public:
-	Input();
+	Input(GLFWwindow* window);
+
 	void Update(GLFWwindow* window);
+	void setScrollY() { scrollY = 0; }
+
 	bool isKeyPressed(GLFWwindow* window, int keycode);
+	bool isMouseKeyPressed(GLFWwindow* window, int keycode);
+
 	std::pair<float, float> getMousePos(GLFWwindow* window);
-	float getMouseX(GLFWwindow* window);
-	float getMouseY(GLFWwindow* window);
+
+	int getScrollY();
+	int getScrollX();
+	
+private:
+	static void scrollCallbackstatic(GLFWwindow* window, double xoffset, double yoffset);
+	void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
 private:
-	
-	
-
-private:
-	
 	GLFWvidmode vidMode;
+	double scrollX;
+	double scrollY;
 };
 

@@ -1,11 +1,9 @@
 #pragma once
-#include "libs.h"
 #include"Shape.h"
 
 class Triangle : public Shape
 {
 public:
-	Triangle();
-
+	Triangle(std::string name);
 };
 

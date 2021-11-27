@@ -18,8 +18,6 @@
 class Shader
 {
 private:
-	GLuint id;
-
 	std::string loadShaderSource(const char* fileName);
 	GLuint loadShader(GLenum type, const char* fileName);
 	void linkProgram(GLuint vertexShader, GLuint geometryShader, GLuint fragmentShader);
@@ -38,5 +36,7 @@ public:
 	void setVec4f(glm::fvec4 value, const GLchar* name);
 	void setMat4fv(glm::mat4 value, const GLchar* name, bool transpose = GL_FALSE);
 	void setMat3fv(glm::mat3 value, const GLchar* name, bool transpose = GL_FALSE);
+private:
+	GLuint id;
 };
 

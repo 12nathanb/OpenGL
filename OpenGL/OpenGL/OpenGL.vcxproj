@@ -54,7 +54,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GSL\include\;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLM\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\SOIL2\include;$(SolutionDir)Dependencies\IRRKLANG\include\IRRKLANG</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\IMGUI;$(SolutionDir)Dependencies\GSL\include\;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLM\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\SOIL2\include;$(SolutionDir)Dependencies\IRRKLANG\include\IRRKLANG</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
@@ -77,7 +77,7 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GSL\include\;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLM\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\SOIL2\include;$(SolutionDir)Dependencies\IRRKLANG\include\IRRKLANG</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\IMGUI;$(SolutionDir)Dependencies\GSL\include\;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLM\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\SOIL2\include;$(SolutionDir)Dependencies\IRRKLANG\include\IRRKLANG</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
@@ -95,13 +95,24 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Dependencies\IMGUI\imgui.cpp" />
+    <ClCompile Include="..\Dependencies\IMGUI\imgui_demo.cpp" />
+    <ClCompile Include="..\Dependencies\IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="..\Dependencies\IMGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\Dependencies\IMGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\Dependencies\IMGUI\imgui_tables.cpp" />
+    <ClCompile Include="..\Dependencies\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\gameObject.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Light.cpp" />
+    <ClCompile Include="src\LoadObjModel.cpp" />
     <ClCompile Include="src\material.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Pyramid.cpp" />
     <ClCompile Include="src\Quad.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -114,13 +125,25 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Dependencies\IMGUI\imconfig.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imgui.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imgui_internal.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imstb_rectpack.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imstb_textedit.h" />
+    <ClInclude Include="..\Dependencies\IMGUI\imstb_truetype.h" />
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\ElementBuffer.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\gameObject.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\LoadObjModel.h" />
     <ClInclude Include="src\material.h" />
+    <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\Pyramid.h" />
     <ClInclude Include="src\Quad.h" />
     <ClInclude Include="src\libs.h" />

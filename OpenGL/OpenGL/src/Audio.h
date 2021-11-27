@@ -12,6 +12,6 @@ public:
 	
 
 private:
-	ISoundEngine* engine;
+	ISoundEngine* Sound_engine;
 };
 
