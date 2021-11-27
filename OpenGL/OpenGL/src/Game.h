@@ -11,7 +11,7 @@
 class Game
 {
 public:
-	Game(GLFWwindow* window, int WindowWidth, int WindowHeight, int framebufferWidth, int frameBufferHight);
+	Game(GLFWwindow* window, int framebufferWidth, int frameBufferHight);
 	void Init();
 	void Keyboard_Input();
 	void Mouse_Input();
@@ -21,32 +21,30 @@ public:
 
 private:
 	GLFWwindow* Window;
-	int WindowWidth;
-	int WindowHeight;
-	int frameBufferWidth;
-	int frameBufferHeight;
-	float dt;
-	float curTime;
-	float lastTime;
-	Cube* t3;
-	Cube* t4;
 
-	double lastMouseX;
-	double lastMouseY;
-	double mouseX;
-	double mouseY;
-	double mouseOffsetX;
-	double mouseOffsetY;
-	bool firstMouse;
+	int Frame_buffer_width;
+	int Frame_buffer_height;
+
+	float Delta_time = 0.f;;
+	float Current_time;
+	float Last_time;
+
+	double Last_mouse_x = 0.0;
+	double Last_mouse_y = 0.0;
+	double Mouse_x = 0.0;
+	double Mouse_y = 0.0;
+	double Mouse_offset_x = 0.0;
+	double Mouse_offset_y = 0.0;
+
+	bool First_mouse = true;
 
 	Camera* camera;
 	Audio* audio;
 	Light* light;
 	Input* input;
-	Shader* core_program;
-	std::vector<Shader*> shaderVec;
-	std::vector<Shape*> shapeVec;
+	Shader* shader;
 	Menu* menu;
-	std::pair<float, float> mousePos;
 
+	std::vector<Shader*> Shader_vector;
+	std::vector<Shape*> Shape_vector;
 };

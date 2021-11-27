@@ -2,50 +2,58 @@
 #include <glm.hpp>
 #include "Shader.h"
 #include <vector>
+
 enum direction { FORWARD = 0, BACKWARD, LEFT, RIGHT };
 
 class Camera
 {
 public:
     Camera(std::vector<Shader*> program);
+
     void Update(std::vector<Shader*> program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height);
-    void SetCameraPos(glm::vec3 CP) { camPostion = CP; }
-    void MoveCamera(glm::vec3 CP) { camPostion += CP; }
-    void SetWorldUp(glm::vec3 WU) { worldUp = WU; }
-    void SetCamFront(glm::vec3 CF) { camFront = CF; }
-    void SetViewMatrix(glm::mat4 VM) { ViewMatrix = VM; }
-    void SetProjectionMatrix(glm::mat4 PM) { ProjectionMatrix = PM; }
+
+    void SetCameraPos(glm::vec3 CP) { Camera_position = CP; }
+    void SetWorldUp(glm::vec3 WU) { World_up = WU; }
+    void SetCamFront(glm::vec3 CF) { Camera_front = CF; }
+    void SetViewMatrix(glm::mat4 VM) { View_matrix = VM; }
+    void SetProjectionMatrix(glm::mat4 PM) { Projection_matrix = PM; }
+
+    void MoveCamera(glm::vec3 CP) { Camera_position += CP; }
     void RotateCamera(glm::vec3 r) { yaw += r.x; pitch += r.y; }
-    glm::vec3 GetCameraPos() { return camPostion; }
-    glm::vec3 GetWorldUp() { return worldUp; }
-    glm::vec3 GetCamFront() { return camFront; }
+
+    glm::vec3 GetCameraPos() { return Camera_position; }
+    glm::vec3 GetWorldUp() { return World_up; }
+    glm::vec3 GetCamFront() { return Camera_front; }
     glm::mat4 GetViewMatrix();
-    glm::mat4 GetProjectionMatrix() { return ProjectionMatrix; }
+    glm::mat4 GetProjectionMatrix() { return Projection_matrix; }
+
     void move(const float& dt, const int direction);
+
     void updateMouseInput(const float& dt, const double& offsetX, const double& offsetY);
     void updateInput(const float& dt, const int direction, const double& offsetX, const double& offsetY);
 
 private:
     void updateCameraVectors();
-private:
-    glm::vec3 camPostion = glm::vec3(0.f, 0.f, 1.f);
-    glm::vec3 worldUp = glm::vec3(0.f, 0.f, 0.f);
-    glm::vec3 camFront;
-    glm::mat4 ViewMatrix;
-    glm::mat4 ProjectionMatrix;
 
-    float fov = 90.0f;
-    float nearPlane = 0.1f;
-    float farPlane = 1000.f;
+private:
+    glm::vec3 Camera_position = glm::vec3(0.0f, 0.f, 0.0f);
+    glm::vec3 World_up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 Camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::mat4 View_matrix = glm::mat4(1.0f);
+    glm::mat4 Projection_matrix = glm::mat4(1.0f);
+
+    float Field_of_view = 90.0f;
+    float Near_plane = 0.1f;
+    float Far_plane = 1000.f;
 
     GLfloat  yaw =  -90;
     GLfloat  pitch = 0;
     GLfloat  roll = 0;
 
-    glm::vec3 right;
+    glm::vec3 right = glm::vec3(0.f);
     glm::vec3 up;
 
-    GLfloat movementSpeed;
-    GLfloat sensitivity;
+    GLfloat Movement_speed = 3.f;
+    GLfloat sensitivity = 5.f;
 };
 

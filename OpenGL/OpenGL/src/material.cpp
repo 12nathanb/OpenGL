@@ -9,8 +9,8 @@ void material::init(glm::vec3 ambient,
 	this->ambient = ambient;
 	this->diffuse = diffuse;
 	this->specular = specular;
-	this->diffuseTex = diffuseTex;
-	this->specularTex = specularTex;
+	this->Diffuse_texture = diffuseTex;
+	this->Specular_texture = specularTex;
 }
 
 
@@ -23,6 +23,6 @@ void material::sendToShader(Shader* program)
 	program->setVec3f(this->diffuse, "material.diffuse");
 	program->setVec3f(this->specular, "material.specular");
 
-	program->setVec1i(this->diffuseTex, "material.diffuseTex");
-	program->setVec1i(this->specularTex, "material.specularTex");
+	program->setVec1i(this->Diffuse_texture, "material.diffuseTex");
+	program->setVec1i(this->Specular_texture, "material.specularTex");
 }

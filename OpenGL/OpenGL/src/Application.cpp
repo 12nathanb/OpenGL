@@ -1,5 +1,4 @@
 #pragma once
-#include "libs.h"
 #include "Triangle.h"
 #include "Shader.h"
 #include "Window.h"
@@ -53,11 +52,10 @@ int main(void)
 
     
 
-    Game game(window.getWindow(), WINDOW_WIDTH, WINDOW_HEIGHT, frame_buffer_width, frame_buffer_height);
+    Game game(window.getWindow(), frame_buffer_width, frame_buffer_height);
 
     while (!glfwWindowShouldClose(window.getWindow()))
     {
-
         glfwPollEvents();
         game.Update();
         game.Keyboard_Input();

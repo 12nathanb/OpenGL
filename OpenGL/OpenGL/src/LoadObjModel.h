@@ -4,9 +4,11 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include<glm.hpp>
+#include <GL/glew.h>
 
 #include "Vertex.h"
-#include "libs.h"
+
 class LoadObjModel
 {
 public:

@@ -1,8 +1,4 @@
 #include "Shape.h"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-
 
 Shape::Shape()
 {
@@ -10,19 +6,19 @@ Shape::Shape()
 
 void Shape::Init(Vertex* vertexArray, const unsigned& num_of_vert, GLuint* indexArray, const unsigned& num_of_indi)
 {
-	core_program = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
+	shader = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
 
 	for (size_t i = 0; i < num_of_vert; i++)
 	{
-		this->vertArray.push_back(vertexArray[i]);
+		this->Vertices_array.push_back(vertexArray[i]);
 	}
 
 	for (size_t i = 0; i < num_of_indi; i++)
 	{
-		this->indiArray.push_back(indexArray[i]);
+		this->Indices_array.push_back(indexArray[i]);
 	}
 
-	createShape(vertArray, indiArray);
+	createShape(Vertices_array, Indices_array);
 
 }
 
@@ -61,10 +57,10 @@ void Shape::createShape(std::vector<Vertex> vert, std::vector<GLuint> indi)
 
 void Shape::Update()
 {
-	material0.init(glm::vec3(ambientAmount), glm::vec3(diffuseAmount), glm::vec3(specularAmount), texture0.getID(), texture0.getID());
+	Material_0.init(glm::vec3(Ambient_amount), glm::vec3(Diffuse_amount), glm::vec3(Specular_amount), Texture_0.getID(), Texture_0.getID());
 	glm::vec3 lightPos0(0.0f, 0.0f, 2.0f);
 	
-	core_program->setVec3f(lightPos0, "lightPos0");
+	shader->setVec3f(lightPos0, "lightPos0");
 	ShapeMenu();
 }
 
@@ -72,10 +68,10 @@ void Shape::Update()
 void Shape::Draw()
 {
 	this->updateModelMatrix();
-	this->updateUniforms(core_program);
-	texture0.bind();
-	material0.sendToShader(core_program);
-	core_program->use();
+	this->updateUniforms(shader);
+	Texture_0.bind();
+	Material_0.sendToShader(shader);
+	shader->use();
 
 	glBindVertexArray(VAO.GetVertexArray());
 
@@ -97,32 +93,32 @@ void Shape::SetTexture(std::string fileName)
 {
 	const char* test = fileName.c_str(); 
 	
-	texture0.init(fileName.c_str(), GL_TEXTURE_2D, 0);
+	Texture_0.init(fileName.c_str(), GL_TEXTURE_2D, 0);
 	
-	material0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), texture0.getID(), texture0.getID());
-	std::cout << "texture id: " << texture0.getID() << "\n";
+	Material_0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), Texture_0.getID(), Texture_0.getID());
+	std::cout << "texture id: " << Texture_0.getID() << "\n";
 }
 
 void Shape::updateModelMatrix()
 {
-	this->ModelMatrix = glm::mat4(1.f);
-	this->ModelMatrix = glm::translate(this->ModelMatrix, this->Position);
-	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	this->ModelMatrix = glm::rotate(this->ModelMatrix, glm::radians(this->Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	this->ModelMatrix = glm::scale(this->ModelMatrix, this->Scale);
+	this->Model_matrix = glm::mat4(1.f);
+	this->Model_matrix = glm::translate(this->Model_matrix, this->Position);
+	this->Model_matrix = glm::rotate(this->Model_matrix, glm::radians(this->Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	this->Model_matrix = glm::rotate(this->Model_matrix, glm::radians(this->Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	this->Model_matrix = glm::rotate(this->Model_matrix, glm::radians(this->Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	this->Model_matrix = glm::scale(this->Model_matrix, this->Scale);
 }
 
 void Shape::ShapeMenu()
 {
-	std::string title = this->objName + " settings";
-	std::string position = this->objName + "_position";
-	std::string rotate = this->objName + "_rotate";
-	std::string scale = this->objName + "_scale";
-	std::string ambient = this->objName + "_Ambient";
-	std::string diffuse = this->objName + "_Diffuse";
-	std::string specular = this->objName + "_Specular";
-	std::string light = this->objName + "_light";
+	std::string title = this->Object_name + " settings";
+	std::string position = this->Object_name + "_position";
+	std::string rotate = this->Object_name + "_rotate";
+	std::string scale = this->Object_name + "_scale";
+	std::string ambient = this->Object_name + "_Ambient";
+	std::string diffuse = this->Object_name + "_Diffuse";
+	std::string specular = this->Object_name + "_Specular";
+	std::string light = this->Object_name + "_light";
 
 
 	ImGui::BeginChild(title.c_str(), ImVec2(0, ImGui::GetFontSize() * 20.0f), true, ImGuiWindowFlags_MenuBar);
@@ -130,10 +126,10 @@ void Shape::ShapeMenu()
 	ImGui::InputFloat3(position.c_str(), (float*)&Position);
 	ImGui::InputFloat3(rotate.c_str(), (float*)&Rotation);
 	ImGui::InputFloat3(scale.c_str(), (float*)&Scale);
-	ImGui::SliderFloat(ambient.c_str(), &ambientAmount, 0.1f, 10.f);
-	ImGui::SliderFloat(diffuse.c_str(), &diffuseAmount, 0.1f, 10.f);
-	ImGui::SliderFloat(specular.c_str(), &specularAmount, 0.1f, 10.f);
-	ImGui::SliderFloat3(light.c_str(), (float*)&lightPos0, 0.0f, 10.0f);
+	ImGui::SliderFloat(ambient.c_str(), &Ambient_amount, 0.1f, 10.f);
+	ImGui::SliderFloat(diffuse.c_str(), &Diffuse_amount, 0.1f, 10.f);
+	ImGui::SliderFloat(specular.c_str(), &Specular_amount, 0.1f, 10.f);
+	ImGui::SliderFloat3(light.c_str(), (float*)&Light_position_0, 0.0f, 10.0f);
 	ImGui::EndChild();
 }
 

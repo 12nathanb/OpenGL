@@ -1,8 +1,6 @@
 #pragma once
-
 #include<iostream>
 #include<string>
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include<SOIL2.h>
@@ -14,7 +12,7 @@ private:
 	int width;
 	int height;
 	unsigned int type;
-	GLint texture_unit;
+	GLint Texture_unit;
 public:
 	Texture();
 	~Texture();

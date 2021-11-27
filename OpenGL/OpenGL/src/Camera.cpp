@@ -2,27 +2,12 @@
 
 Camera::Camera(std::vector<Shader*> program)
 {
-	camPostion = glm::vec3(0.0f, 0.f, 0.0f);
-	worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
-	camFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	ViewMatrix = glm::mat4(1.0f);
-	ProjectionMatrix = glm::mat4(1.0f);
-
-	this->right = glm::vec3(0.f);
-
-	this->pitch = 0.f;
-	this->yaw = -90.f;
-	this->roll = 0.f;
-
-	this->movementSpeed = 3.f;
-	this->sensitivity = 5.f;
-
 	this->updateCameraVectors();
 
 	for (int i = 0; i < program.size(); i++)
 	{
-		program[i]->setMat4fv(ProjectionMatrix, "ProjectionMatrix");
-		program[i]->setMat4fv(ViewMatrix, "ViewMatrix");
+		program[i]->setMat4fv(Projection_matrix, "ProjectionMatrix");
+		program[i]->setMat4fv(View_matrix, "ViewMatrix");
 	}
 	
 }
@@ -30,15 +15,17 @@ Camera::Camera(std::vector<Shader*> program)
 void Camera::Update(std::vector<Shader*> program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height)
 {
 	updateCameraVectors();
-	ViewMatrix = glm::lookAt(camPostion, camPostion + camFront, worldUp);
+
+	View_matrix = glm::lookAt(Camera_position, Camera_position + Camera_front, World_up);
+
 	glfwGetFramebufferSize(window, &frame_buffer_width, &frame_buffer_height);
 	
-	ProjectionMatrix = glm::perspective(glm::radians(fov), static_cast<float>(frame_buffer_width) / frame_buffer_height, nearPlane, farPlane);
+	Projection_matrix = glm::perspective(glm::radians(Field_of_view), static_cast<float>(frame_buffer_width) / frame_buffer_height, Near_plane, Far_plane);
 
 	for (int i = 0; i < program.size(); i++)
 	{
-		program[i]->setMat4fv(ProjectionMatrix, "ProjectionMatrix");
-		program[i]->setMat4fv(ViewMatrix, "ViewMatrix");
+		program[i]->setMat4fv(Projection_matrix, "ProjectionMatrix");
+		program[i]->setMat4fv(View_matrix, "ViewMatrix");
 		program[i]->setVec3f(this->GetCameraPos(), "cameraPos");
 	}
 }
@@ -46,9 +33,9 @@ void Camera::Update(std::vector<Shader*> program, GLFWwindow* window, int& frame
 glm::mat4 Camera::GetViewMatrix()
 {
 	this->updateCameraVectors();
-	this->ViewMatrix = glm::lookAt(this->camPostion, this->camPostion + this->camFront, this->up);
+	this->View_matrix = glm::lookAt(this->Camera_position, this->Camera_position + this->Camera_front, this->up);
 	
-	return this->ViewMatrix;
+	return this->View_matrix;
 }
 
 void Camera::move(const float& dt, const int direction)
@@ -57,16 +44,16 @@ void Camera::move(const float& dt, const int direction)
 	switch (direction)
 	{
 	case FORWARD:
-		this->camPostion += this->camFront * this->movementSpeed * dt;
+		this->Camera_position += this->Camera_front * this->Movement_speed * dt;
 		break;
 	case BACKWARD:
-		this->camPostion -= this->camFront * this->movementSpeed * dt;
+		this->Camera_position -= this->Camera_front * this->Movement_speed * dt;
 		break;
 	case LEFT:
-		this->camPostion -= this->right * this->movementSpeed * dt;
+		this->Camera_position -= this->right * this->Movement_speed * dt;
 		break;
 	case RIGHT:
-		this->camPostion += this->right * this->movementSpeed * dt;
+		this->Camera_position += this->right * this->Movement_speed * dt;
 		break;
 	default:
 		break;
@@ -75,7 +62,7 @@ void Camera::move(const float& dt, const int direction)
 
 void Camera::updateMouseInput(const float& dt, const double& offsetX, const double& offsetY)
 {
-		this->pitch += static_cast<GLfloat>(offsetY)* this->sensitivity* dt;
+	this->pitch += static_cast<GLfloat>(offsetY)* this->sensitivity* dt;
 	this->yaw += static_cast<GLfloat>(offsetX)* this->sensitivity* dt;
 
 	if (this->pitch > 80.f)
@@ -94,11 +81,11 @@ void Camera::updateInput(const float& dt, const int direction, const double& off
 
 void Camera::updateCameraVectors()
 {
-	this->camFront.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-	this->camFront.y = sin(glm::radians(this->pitch));
-	this->camFront.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+	this->Camera_front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+	this->Camera_front.y = sin(glm::radians(this->pitch));
+	this->Camera_front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
 
-	this->camFront = glm::normalize(this->camFront);
-	this->right = glm::normalize(glm::cross(this->camFront, this->worldUp));
-	this->up = glm::normalize(glm::cross(this->right, this->camFront));
+	this->Camera_front = glm::normalize(this->Camera_front);
+	this->right = glm::normalize(glm::cross(this->Camera_front, this->World_up));
+	this->up = glm::normalize(glm::cross(this->right, this->Camera_front));
 }

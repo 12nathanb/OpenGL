@@ -7,5 +7,5 @@ Light::Light()
 
 void Light::Draw(Shader* program)
 {
-	program->setVec3f(lightPos0, "lightPos0");
+	program->setVec3f(Light_position_0, "lightPos0");
 }

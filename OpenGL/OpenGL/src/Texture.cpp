@@ -12,7 +12,7 @@ Texture::~Texture()
 
 void Texture::init(const char* fileName, GLenum type, const GLint texture_unit)
 {
-	this->texture_unit = texture_unit;
+	this->Texture_unit = texture_unit;
 	this->type = type;
 	std::string dir = ".\\src\\Resources\\Images\\";
 	dir += fileName;

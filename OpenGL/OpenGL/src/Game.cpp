@@ -1,30 +1,16 @@
 #include "Game.h"
 
-Game::Game(GLFWwindow* window, int WindowWidth, int WindowHeight, int framebufferWidth, int frameBufferHight)
+Game::Game(GLFWwindow* window, int framebufferWidth, int frameBufferHight)
 {
-	
-	//this->core_program = program;
-	this->dt = 0.f;
-	this->lastMouseX = 0.0;
-	this->lastMouseY = 0.0;
-	this->mouseX = 0.0;
-	this->mouseY = 0.0;
-	this->mouseOffsetX = 0.0;
-	this->mouseOffsetY = 0.0;
-	this->firstMouse = true;
-
-
-	this->WindowHeight = WindowHeight;
-	this->WindowWidth = WindowWidth;
 	this->Window = window;
-	this->frameBufferHeight = frameBufferHight;
-	this->frameBufferWidth = framebufferWidth;
+	this->Frame_buffer_height = frameBufferHight;
+	this->Frame_buffer_width = framebufferWidth;
 	this->Init();
 }
 
 void Game::Init()
 {	
-	camera = new Camera(shaderVec);
+	camera = new Camera(Shader_vector);
 
 	audio = new Audio();
 	//audio.loadFile("test.WAV", true);
@@ -33,73 +19,62 @@ void Game::Init()
 	input = new Input(Window);
 	
 	menu = new Menu(this->Window);
-
-	camera->SetCameraPos(glm::vec3(0.0f, 0.0f, 3.0f));
 }
 
 void Game::Keyboard_Input()
 {
-	this->updateDt();
-
 	if (input->isKeyPressed(Window, GLFW_KEY_UP) || input->isKeyPressed(Window, GLFW_KEY_W))
 	{
-		camera->move(dt, FORWARD);
+		camera->move(Delta_time, FORWARD);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_DOWN) || input->isKeyPressed(Window, GLFW_KEY_S))
 	{
-		camera->move(dt, BACKWARD);
+		camera->move(Delta_time, BACKWARD);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_LEFT) || input->isKeyPressed(Window, GLFW_KEY_A))
 	{
-		camera->move(dt, LEFT);
+		camera->move(Delta_time, LEFT);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_RIGHT) || input->isKeyPressed(Window, GLFW_KEY_D))
 	{
-		camera->move(dt, RIGHT);
+		camera->move(Delta_time, RIGHT);
 	}
 
 	if (input->isKeyPressed(Window, GLFW_KEY_ESCAPE))
 	{
 		glfwTerminate();
 	}
-
-	
 }
 
 void Game::Mouse_Input()
 {
-	mousePos = input->getMousePos(Window);
+	glfwGetCursorPos(this->Window, &this->Mouse_x, &this->Mouse_y);
 
-	glfwGetCursorPos(this->Window, &this->mouseX, &this->mouseY);
-
-	if (this->firstMouse)
+	if (this->First_mouse)
 	{
-		this->lastMouseX = this->mouseX;
-		this->lastMouseY = this->mouseY;
-		this->firstMouse = false;
+		this->Last_mouse_x = this->Mouse_x;
+		this->Last_mouse_y = this->Mouse_y;
+		this->First_mouse = false;
 	}
 
 	//Calc offset
-	this->mouseOffsetX = this->mouseX - this->lastMouseX;
-	this->mouseOffsetY = this->lastMouseY - this->mouseY;
+	this->Mouse_offset_x = this->Mouse_x - this->Last_mouse_x;
+	this->Mouse_offset_y = this->Last_mouse_y - this->Mouse_y;
 
 	//Set last X and Y
-	this->lastMouseX = this->mouseX;
-	this->lastMouseY = this->mouseY;
+	this->Last_mouse_x = this->Mouse_x;
+	this->Last_mouse_y = this->Mouse_y;
 
 	if (input->isMouseKeyPressed(Window, 2))
 	{
-		
-
-
-		camera->updateInput(dt, -1, this->mouseOffsetX, this->mouseOffsetY);
+		camera->updateInput(Delta_time, -1, this->Mouse_offset_x, this->Mouse_offset_y);
 	}
+
 	if (input->getScrollY() >= 1)
 	{
-
 		camera->MoveCamera(glm::vec3(NULL, NULL, -0.3));
 		input->setScrollY();
 	}
@@ -109,26 +84,11 @@ void Game::Mouse_Input()
 		camera->MoveCamera(glm::vec3(NULL, NULL, 0.3));
 		input->setScrollY();
 	}
-	if (input->isMouseKeyPressed(Window, 0))
-	{
-
-	}
-	input->isMouseKeyPressed(Window, 1);
-
-	
-
-
-	input->isMouseKeyPressed(Window, 3);
-	input->isMouseKeyPressed(Window, 4);
-	input->isMouseKeyPressed(Window, 5);
-	input->isMouseKeyPressed(Window, 6);
-
 }
 
 void Game::Update()
 {
-	
-	
+	this->updateDt();
 	
 	menu->Update();
 	
@@ -151,9 +111,9 @@ void Game::Update()
 	{
 		bool create = true;
 
-		for (int i = 0; i < shapeVec.size(); i++)
+		for (int i = 0; i < Shape_vector.size(); i++)
 		{
-			if (shapeVec[i]->getObjName() == str1)
+			if (Shape_vector[i]->getObjName() == str1)
 			{
 				create = false;
 			}
@@ -163,22 +123,22 @@ void Game::Update()
 		{
 			if (listbox_item_current != 2)
 			{
-				std::cout << "Current Object count: " << shapeVec.size() << "\n";
+				std::cout << "Current Object count: " << Shape_vector.size() << "\n";
 				if (listbox_item_current == 0)
 				{
-					shapeVec.push_back(new Cube(str1, str2));
+					Shape_vector.push_back(new Cube(str1, str2));
 				}
 				else if (listbox_item_current == 1)
 				{
-					shapeVec.push_back(new Pyramid(str1, str2));
+					Shape_vector.push_back(new Pyramid(str1, str2));
 				}
 
-				shaderVec.push_back(shapeVec.back()->getShader());
+				Shader_vector.push_back(Shape_vector.back()->getShader());
 			}
 			else if (listbox_item_current == 2 && strlen(str3) != 0)
 			{
-				shapeVec.push_back(new gameObject(str1, str3, str2));
-				shaderVec.push_back(shapeVec.back()->getShader());
+				Shape_vector.push_back(new gameObject(str1, str3, str2));
+				Shader_vector.push_back(Shape_vector.back()->getShader());
 			}
 			
 		}
@@ -186,24 +146,21 @@ void Game::Update()
 	}
 	ImGui::End();
 	
-	for (int i = 0; i < shapeVec.size(); i++)
+	for (int i = 0; i < Shape_vector.size(); i++)
 	{
-		shapeVec[i]->Update();
+		Shape_vector[i]->Update();
 	}
 
 	input->Update(Window);
-	
-	
-
-	camera->Update(shaderVec, Window, frameBufferWidth, frameBufferHeight);
+	camera->Update(Shader_vector, Window, Frame_buffer_width, Frame_buffer_height);
 }
 
 void Game::Draw()
 {
 	
-	for (int i = 0; i < shapeVec.size(); i++)
+	for (int i = 0; i < Shape_vector.size(); i++)
 	{
-		shapeVec[i]->Draw();
+		Shape_vector[i]->Draw();
 	}
 
 	menu->Draw();
@@ -211,7 +168,7 @@ void Game::Draw()
 
 void Game::updateDt()
 {
-	this->curTime = static_cast<float>(glfwGetTime());
-	this->dt = this->curTime - this->lastTime;
-	this->lastTime = this->curTime;
+	this->Current_time = static_cast<float>(glfwGetTime());
+	this->Delta_time = this->Current_time - this->Last_time;
+	this->Last_time = this->Current_time;
 }
