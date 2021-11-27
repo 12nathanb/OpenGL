@@ -2,6 +2,8 @@
 
 std::vector<Vertex> LoadObjModel::loadModel(const char* filename)
 {
+	std::string dir = "C:\\Users\\natha\\OpenGL\\OpenGL\\OpenGL\\src\\Resources\\Models\\";
+	dir += filename;
 	std::vector<glm::fvec3> vertex_positions;
 	std::vector<glm::fvec2> vertex_texcoord;
 	std::vector<glm::fvec3> vertex_normal;
@@ -18,7 +20,7 @@ std::vector<Vertex> LoadObjModel::loadModel(const char* filename)
 	GLint TempGlint = 0;
 
 	std::stringstream ss;
-	std::ifstream in_file(filename);
+	std::ifstream in_file(dir);
 	std::string line = "";
 	std::string prefix = "";
 
@@ -115,8 +117,7 @@ std::vector<Vertex> LoadObjModel::loadModel(const char* filename)
 			verticies[i].color = glm::vec3(1.f, 1.f, 1.f);
 		}
 
-		std::cout << "number of vertices: " << verticies.size() << "\n";
-		std::cout << "OBJ file loaded!" << "\n";
+		std::cout << "[LoadObjModel] Loaded model: " << dir << "\n";
 	
 	return verticies;
 }

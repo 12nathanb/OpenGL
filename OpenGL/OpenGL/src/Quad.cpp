@@ -1,32 +1,9 @@
 #include "Quad.h"
 
-
-
-Quad::Quad(std::string name)
+Quad::Quad(std::string name, std::string filename)
 {
 	this->setObjName(name);
-	GLuint indices[] =
-	{
-		0, 1, 2,
-		0, 2, 3
-	};
-
-	Vertex vertices[] =
-	{
-		//position							//color								//texcoords			//normals
-		glm::vec3(-0.5f, 0.5f, 0.5f),			glm::vec3(1.f, 0.f, 0.f),		glm::vec2(0.f, 1.f),				glm::vec3(0.f, 0.f, 1.f),
-				glm::vec3(-0.5f, -0.5f, 0.5f),			glm::vec3(0.f, 1.f, 0.f),		glm::vec2(0.f, 0.f),		glm::vec3(0.f, 0.f, 1.f),
-				glm::vec3(0.5f, -0.5f, 0.5f),			glm::vec3(0.f, 0.f, 1.f),		glm::vec2(1.f, 0.f),		glm::vec3(0.f, 0.f, 1.f),
-				glm::vec3(0.5f, 0.5f, 0.5f),			glm::vec3(1.f, 1.f, 0.f),		glm::vec2(1.f, 1.f),		glm::vec3(0.f, 0.f, 1.f)
-
-	};
-
-
-	unsigned numV = sizeof(vertices) / sizeof(Vertex);
-	unsigned numI = sizeof(indices) / sizeof(GLuint);
-
-	Init(vertices, numV, indices, numI);
+	std::vector<Vertex> mesh = load.loadModel("\\primitives\\Plane.obj");
+	Init(mesh.data(), mesh.size(), NULL, 0);
+	this->SetTexture(filename);
 }
-
-
-

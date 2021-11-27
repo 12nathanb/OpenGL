@@ -96,7 +96,6 @@ void Shape::SetTexture(std::string fileName)
 	Texture_0.init(fileName.c_str(), GL_TEXTURE_2D, 0);
 	
 	Material_0.init(glm::vec3(0.1f), glm::vec3(0.1f), glm::vec3(0.1f), Texture_0.getID(), Texture_0.getID());
-	std::cout << "texture id: " << Texture_0.getID() << "\n";
 }
 
 void Shape::updateModelMatrix()
@@ -120,7 +119,7 @@ void Shape::ShapeMenu()
 	std::string specular = this->Object_name + "_Specular";
 	std::string light = this->Object_name + "_light";
 
-
+	ImGui::Begin("Menu");
 	ImGui::BeginChild(title.c_str(), ImVec2(0, ImGui::GetFontSize() * 20.0f), true, ImGuiWindowFlags_MenuBar);
 
 	ImGui::InputFloat3(position.c_str(), (float*)&Position);
@@ -131,5 +130,6 @@ void Shape::ShapeMenu()
 	ImGui::SliderFloat(specular.c_str(), &Specular_amount, 0.1f, 10.f);
 	ImGui::SliderFloat3(light.c_str(), (float*)&Light_position_0, 0.0f, 10.0f);
 	ImGui::EndChild();
+	ImGui::End();
 }
 

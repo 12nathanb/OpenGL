@@ -105,9 +105,11 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Cube.cpp" />
+    <ClCompile Include="src\Cylinder.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\gameObject.cpp" />
+    <ClCompile Include="src\IcoSphere.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\LoadObjModel.cpp" />
@@ -118,7 +120,9 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Shape.cpp" />
+    <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Torus.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
@@ -136,9 +140,11 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Cube.h" />
+    <ClInclude Include="src\Cylinder.h" />
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\gameObject.h" />
+    <ClInclude Include="src\IcoSphere.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\LoadObjModel.h" />
@@ -149,7 +155,9 @@ xcopy /y /d "$(SolutionDir)Dependencies\IRRKLANG\DLL\irrKlang.dll" "$(OutDir)"</
     <ClInclude Include="src\libs.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
+    <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Torus.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\Vertex.h" />
     <ClInclude Include="src\VertexArray.h" />

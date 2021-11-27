@@ -35,7 +35,7 @@ int main(void)
     /*initilise*/
     if (glewInit() != GLEW_OK)
     {
-        std::cout << "ERROR WITH GLEW INIT" << std::endl;
+        std::cout << "[Application.cpp] ERROR WITH GLEW INIT" << std::endl;
         glfwTerminate();
         return -1;
     }

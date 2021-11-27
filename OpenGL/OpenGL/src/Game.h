@@ -7,6 +7,12 @@
 #include "Pyramid.h"
 #include "Menu.h"
 #include "gameObject.h"
+#include "Torus.h"
+#include "IcoSphere.h"
+#include "Quad.h"
+#include "Sphere.h"
+#include "Cylinder.h"
+#include <ctime>
 
 class Game
 {
@@ -37,6 +43,9 @@ private:
 	double Mouse_offset_y = 0.0;
 
 	bool First_mouse = true;
+
+	clock_t current_ticks, delta_ticks;
+	clock_t fps = 0;
 
 	Camera* camera;
 	Audio* audio;

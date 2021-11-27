@@ -34,9 +34,6 @@
     <Filter Include="Header Files\imgui">
       <UniqueIdentifier>{3d5e84ef-30dc-4cd1-b909-174af9b727c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Graphics\Custom">
-      <UniqueIdentifier>{156249e0-8103-4f20-abcb-37eedc227da2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -121,6 +118,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gameObject.cpp">
+      <Filter>Source Files\Graphics\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IcoSphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Torus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,6 +222,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cylinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IcoSphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Torus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,7 +10,7 @@ Game::Game(GLFWwindow* window, int framebufferWidth, int frameBufferHight)
 
 void Game::Init()
 {	
-	camera = new Camera(Shader_vector);
+	camera = new Camera();
 
 	audio = new Audio();
 	//audio.loadFile("test.WAV", true);
@@ -88,21 +88,31 @@ void Game::Mouse_Input()
 
 void Game::Update()
 {
+	
 	this->updateDt();
 	
 	menu->Update();
 	
-	ImGui::Begin("Create Objects");
+	ImGui::Begin("Menu", 0 , ImGuiTreeNodeFlags_CollapsingHeader);
+
+	std::string objcount = "object count: " + std::to_string(Shape_vector.size());
+	std::string fpsStr = " fps: " + std::to_string(fps);
+
+	ImGui::Text(objcount.c_str());
+	ImGui::SameLine();
+	ImGui::Text(fpsStr.c_str());
+	
+	ImGui::BeginChild("Create Object", ImVec2(0, ImGui::GetFontSize() * 20.0f), true, ImGuiWindowFlags_MenuBar);
 	static char str1[128] = "";
 	ImGui::InputText("Object Name", str1, IM_ARRAYSIZE(str1));
 	static char str2[128] = "";
 	ImGui::InputText("Object texture", str2, IM_ARRAYSIZE(str2));
 	static char str3[128] = "";
-	const char* listbox_items[] = { "Cube", "Pyramid", "custom"};
+	const char* listbox_items[] = { "Cube", "Cone", "Plane", "Torus", "Cylinder" , "Icosphere", "Sphere","Custom"};
 	static int listbox_item_current = 0;
 	ImGui::ListBox("Choose Object Type", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
 
-	if (listbox_item_current == 2)
+	if (listbox_item_current == 7)
 	{
 		ImGui::InputText("obj file", str3, IM_ARRAYSIZE(str3));
 	}
@@ -121,9 +131,8 @@ void Game::Update()
 
 		if (create == true)
 		{
-			if (listbox_item_current != 2)
+			if (listbox_item_current != 7)
 			{
-				std::cout << "Current Object count: " << Shape_vector.size() << "\n";
 				if (listbox_item_current == 0)
 				{
 					Shape_vector.push_back(new Cube(str1, str2));
@@ -132,10 +141,35 @@ void Game::Update()
 				{
 					Shape_vector.push_back(new Pyramid(str1, str2));
 				}
+				else if (listbox_item_current == 2)
+				{
+					Shape_vector.push_back(new Quad(str1, str2));
+				}
+
+				else if (listbox_item_current == 3)
+				{
+					Shape_vector.push_back(new Torus(str1, str2));
+				}
+
+				else if (listbox_item_current == 4)
+				{
+					Shape_vector.push_back(new Cylinder(str1, str2));
+				}
+
+				else if (listbox_item_current == 5)
+				{
+					Shape_vector.push_back(new IcoSphere(str1, str2));
+				}
+
+				else if (listbox_item_current == 6)
+				{
+					Shape_vector.push_back(new Sphere(str1, str2));
+				}
+
 
 				Shader_vector.push_back(Shape_vector.back()->getShader());
 			}
-			else if (listbox_item_current == 2 && strlen(str3) != 0)
+			else if (listbox_item_current == 7 && strlen(str3) != 0)
 			{
 				Shape_vector.push_back(new gameObject(str1, str3, str2));
 				Shader_vector.push_back(Shape_vector.back()->getShader());
@@ -144,26 +178,35 @@ void Game::Update()
 		}
 		
 	}
+	ImGui::EndChild();
 	ImGui::End();
-	
+	camera->Update(Window);
+	input->Update(Window);
 	for (int i = 0; i < Shape_vector.size(); i++)
 	{
 		Shape_vector[i]->Update();
 	}
 
-	input->Update(Window);
-	camera->Update(Shader_vector, Window, Frame_buffer_width, Frame_buffer_height);
+	
+	
 }
 
 void Game::Draw()
 {
-	
+	current_ticks = clock();
 	for (int i = 0; i < Shape_vector.size(); i++)
 	{
+		Shader_vector[i]->setMat4fv(camera->GetProjectionMatrix(), "ProjectionMatrix");
+		Shader_vector[i]->setMat4fv(camera->GetViewMatrix(), "ViewMatrix");
+		Shader_vector[i]->setVec3f(camera->GetCameraPos(), "cameraPos");
 		Shape_vector[i]->Draw();
 	}
 
 	menu->Draw();
+
+	delta_ticks = clock() - current_ticks; //the time, in ms, that took to render the scene
+	if (delta_ticks > 0)
+		fps = CLOCKS_PER_SEC / delta_ticks;
 }
 
 void Game::updateDt()

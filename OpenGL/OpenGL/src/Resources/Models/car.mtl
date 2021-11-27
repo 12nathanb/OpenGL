@@ -1,0 +1,91 @@
+# Blender MTL File: 'None'
+# Material Count: 7
+
+newmtl a110_Rally02_Rim
+Ns 56.806129
+Ka 0.421500 0.421500 0.421500
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\a110rim01.tga
+map_Ks C:\\Users\\natha\\Downloads\\sourceimages\\a110rim01.tga
+refl C:\\Users\\natha\\Downloads\\sourceimages\\a110rim01.tga
+
+newmtl a110_Rally02_Tire
+Ns 56.806129
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\a110rim01.tga
+map_Ks C:\\Users\\natha\\Downloads\\sourceimages\\a110rim01.tga
+
+newmtl a110_Rally02_Tread
+Ns 56.806129
+Ka 0.500000 0.500000 0.500000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump -bm 0.100000 C:\\Users\\natha\\Downloads\\sourceimages\\a110tread.tga
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\a110tread.tga
+map_Ks C:\\Users\\natha\\Downloads\\sourceimages\\a110tread.tga
+
+newmtl a110_Street_Body
+Ns 114.711718
+Ka 0.500000 0.500000 0.500000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump -bm 0.100000 C:\\Users\\natha\\Downloads\\sourceimages\\alpinestreet01_b.tga
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\alpinestreet01.tga
+map_Ks C:\\Users\\natha\\Downloads\\sourceimages\\alpinestreet01_s.tga
+refl C:\\Users\\natha\\Downloads\\sourceimages\\alpinestreet01_r.tga
+
+newmtl a110_Street_Interior
+Ns 179.999996
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\alpinestreetint01.tga
+
+newmtl a110_Street_Steering
+Ns 420.207704
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\glass03.tga
+map_d C:\\Users\\natha\\Downloads\\sourceimages\\glass_t_03.tga
+
+newmtl a110_Street_Transparency
+Ns 420.207704
+Ka 0.500000 0.500000 0.500000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\natha\\Downloads\\sourceimages\\glass03.tga
+map_Ks C:\\Users\\natha\\Downloads\\sourceimages\\glass01_s.tga
+map_d C:\\Users\\natha\\Downloads\\sourceimages\\glass_t_03.tga
+refl C:\\Users\\natha\\Downloads\\sourceimages\\glass01_r.tga

@@ -28,7 +28,6 @@ bool Input::isMouseKeyPressed(GLFWwindow* window, int keycode)
     int state = glfwGetMouseButton(window, keycode);
     if (state == GLFW_PRESS)
     {
-        std::cout << "pressed:" << keycode << "\n";
         return true;
     }
     else
@@ -56,8 +55,6 @@ int Input::getScrollY()
 int Input::getScrollX()
 {
     float xvalue = scrollX;
-    scrollX = 0;
-    std::cout << xvalue << "\n";
     return xvalue;
 }
 

@@ -8,9 +8,9 @@ Shader::Shader(const char* vertexFile,  const char* fragmentFile,  const char* g
 	std::string fragFile(std::string(fileDir) + fragmentFile);
 	std::string geoFile(std::string(fileDir) + geomtryFile);
 
-	std::cout << "Loaded shader file: " << vertFile << std::endl;
-	std::cout << "Loaded shader file: " << fragFile << std::endl;
-	std::cout << "Loaded shader file: " << geoFile << std::endl;
+	std::cout << "[Shader.cpp] Loaded vertex shader file: " << vertFile << std::endl;
+	std::cout << "[Shader.cpp] Loaded fragment shader file: " << fragFile << std::endl;
+	std::cout << "[Shader.cpp] Loaded geometry shader file: " << geoFile << std::endl;
 
 	GLuint vertexShader = 0;
 	GLuint geometryShader = 0;
@@ -26,10 +26,6 @@ Shader::Shader(const char* vertexFile,  const char* fragmentFile,  const char* g
 	}
 
 	fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragFile.c_str());
-
-	std::cout << vertexShader << std::endl;
-	std::cout << geometryShader << std::endl;
-	std::cout << fragmentShader << std::endl;
 
 	this->linkProgram(vertexShader, geometryShader, fragmentShader);
 	
@@ -104,7 +100,7 @@ std::string Shader::loadShaderSource(const char* fileName)
 	}
 	else
 	{
-		std::cout << "ERROR LOADING SHADER FILE: " << fileName << std::endl;
+		std::cout << "[Shader.cpp] ERROR LOADING SHADER FILE: " << fileName << std::endl;
 	}
 
 	std::string versionNr =
@@ -133,8 +129,8 @@ GLuint Shader::loadShader(GLenum type, const char* fileName)
 	if (!success)
 	{
 		glGetShaderInfoLog(shader, 512, NULL, info_log);
-		std::cout << "ERROR COMPILING SHADER" << fileName << std::endl;
-		std::cout << info_log << std::endl;
+		std::cout << "[Shader.cpp] ERROR COMPILING SHADER" << fileName << std::endl;
+		std::cout << "[Shader.cpp] " << info_log << std::endl;
 	}
 
 	return shader;
@@ -161,8 +157,8 @@ void Shader::linkProgram(GLuint vertexShader, GLuint geometryShader, GLuint frag
 	if (!success)
 	{
 		glGetProgramInfoLog(this->id, 512, NULL, info_log);
-		std::cout << "COULD NOT LINK PROGRAM" << std::endl;
-		std::cout << info_log << std::endl;
+		std::cout << "[Shader.cpp] COULD NOT LINK PROGRAM" << std::endl;
+		std::cout << "[Shader.cpp] " << info_log << std::endl;
 	}
 	glUseProgram(0);
 }

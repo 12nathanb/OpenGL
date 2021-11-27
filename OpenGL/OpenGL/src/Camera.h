@@ -2,15 +2,21 @@
 #include <glm.hpp>
 #include "Shader.h"
 #include <vector>
+#include <GLFW/glfw3.h>
+#include<string>  
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 enum direction { FORWARD = 0, BACKWARD, LEFT, RIGHT };
 
 class Camera
 {
 public:
-    Camera(std::vector<Shader*> program);
+    Camera();
 
-    void Update(std::vector<Shader*> program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height);
+    void Update(GLFWwindow* window);
 
     void SetCameraPos(glm::vec3 CP) { Camera_position = CP; }
     void SetWorldUp(glm::vec3 WU) { World_up = WU; }

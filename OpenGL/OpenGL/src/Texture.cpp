@@ -15,10 +15,9 @@ void Texture::init(const char* fileName, GLenum type, const GLint texture_unit)
 	this->Texture_unit = texture_unit;
 	this->type = type;
 	std::string dir = ".\\src\\Resources\\Images\\";
-	dir += fileName;
-	std::cout << fileName << std::endl;
+	dir = dir + fileName + ".jpg";
+	std::cout << "[Texture.cpp] Loaded: " << dir << std::endl;
 	const char* file = dir.c_str();
-	std::cout << file << std::endl;
 	unsigned char* image = SOIL_load_image(file, &this->width, &this->height, NULL, SOIL_LOAD_RGBA);
 
 	glGenTextures(1, &this->id);
@@ -36,7 +35,7 @@ void Texture::init(const char* fileName, GLenum type, const GLint texture_unit)
 	}
 	else
 	{
-		std::cout << "ERROR::TEXTURE::TEXTURE_LOADING_FAILED: " << fileName << "\n";
+		std::cout << "[Texture.cpp] ERROR::TEXTURE::TEXTURE_LOADING_FAILED: " << fileName << "\n";
 	}
 
 	glActiveTexture(0);

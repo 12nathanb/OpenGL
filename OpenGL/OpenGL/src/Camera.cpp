@@ -1,19 +1,20 @@
 #include "Camera.h"
 
-Camera::Camera(std::vector<Shader*> program)
+Camera::Camera()
 {
 	this->updateCameraVectors();
-
-	for (int i = 0; i < program.size(); i++)
-	{
-		program[i]->setMat4fv(Projection_matrix, "ProjectionMatrix");
-		program[i]->setMat4fv(View_matrix, "ViewMatrix");
-	}
-	
 }
 
-void Camera::Update(std::vector<Shader*> program, GLFWwindow* window, int& frame_buffer_width, int& frame_buffer_height)
+void Camera::Update(GLFWwindow* window)
 {
+	ImGui::Begin("Menu");
+	ImGui::BeginChild("Menu", ImVec2(0, ImGui::GetFontSize() * 20.0f), true, ImGuiWindowFlags_MenuBar);
+	ImGui::SliderFloat("Movement speed", &Movement_speed, 0.1f, 5.0f);
+	ImGui::SliderFloat("Mouse Sensitivity", &sensitivity, 0.1f, 10.0f);
+	ImGui::EndChild();
+	ImGui::End();
+	int frame_buffer_width;
+	int frame_buffer_height;
 	updateCameraVectors();
 
 	View_matrix = glm::lookAt(Camera_position, Camera_position + Camera_front, World_up);
@@ -21,13 +22,6 @@ void Camera::Update(std::vector<Shader*> program, GLFWwindow* window, int& frame
 	glfwGetFramebufferSize(window, &frame_buffer_width, &frame_buffer_height);
 	
 	Projection_matrix = glm::perspective(glm::radians(Field_of_view), static_cast<float>(frame_buffer_width) / frame_buffer_height, Near_plane, Far_plane);
-
-	for (int i = 0; i < program.size(); i++)
-	{
-		program[i]->setMat4fv(Projection_matrix, "ProjectionMatrix");
-		program[i]->setMat4fv(View_matrix, "ViewMatrix");
-		program[i]->setVec3f(this->GetCameraPos(), "cameraPos");
-	}
 }
 
 glm::mat4 Camera::GetViewMatrix()
